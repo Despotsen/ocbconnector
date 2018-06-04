@@ -9,7 +9,7 @@ module.exports = () => {
       entities.getEntities(req, res, req.params.id);
     })
     .post((req, res) => {
-      res.status(200).json({ message: 'Hello from post' });
+      entities.postEntities(req, res);
     });
 
   router.route('/v1/entities/:id')
