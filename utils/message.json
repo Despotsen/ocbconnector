@@ -1,0 +1,4 @@
+{
+  "500" : "There are no server resources to fulfill the client request.",
+  "404" : "The resource (entity, subscription, etc.) referred in the request has not been found."
+}
