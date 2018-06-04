@@ -1,4 +1,5 @@
 const { entities } = require('../services/');
+const response = require('../utils/message.json');
 
 function getEntities(req, res, id) {
   entities.processEntities(id)
@@ -6,11 +7,26 @@ function getEntities(req, res, id) {
       res.status(200).json(result);
     })
     .catch((error) => {
-      res.status(404).json(error);
+      entitiesOperation
+        .errorHandle(res, error.message, error.statusCode || 500);
     });
 }
 
-module.exports = {
-  getEntities,
+const entitiesOperation = {
+
+  errorHandle: (res, message, code) => {
+    res.status(code)
+      .json(msgRes(code));
+  }
 };
 
+function msgRes(code) {
+  if (!code) {
+    return response['500'];
+  }
+  return response[code];
+}
+
+module.exports = {
+  getEntities
+};
