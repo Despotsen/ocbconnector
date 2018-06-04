@@ -1,5 +1,5 @@
 const request = require('request-promise');
-const config = require('../config');
+const url = require('../config').orion_url;
 
 function processEntities(id) {
   if (!id) {
@@ -10,23 +10,23 @@ function processEntities(id) {
 
 const entitiesOperations = {
 
-  getEntities: () => { 
+  getEntities: () => {
     return request({
       method: 'GET',
-      uri: config.orion_url,
-      json: true,
+      uri: url,
+      json: true
     });
   },
 
   getEntity: (id) => {
     return request({
       method: 'GET',
-      uri: config.orion_url + id,
-      json: true,
+      uri: url + id,
+      json: true
     });
-  },
+  }
 };
 
 module.exports = {
-  processEntities,
+  processEntities
 };
