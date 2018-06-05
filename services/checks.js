@@ -23,11 +23,11 @@ function fileCheck(file, cb) {
 
 function headerCheck(headers, cb) {
   if(headers['fiware-service'] === undefined) {
-    return cb('501');
+    return cb('428');
   }
 
   if(headers['fiware-servicepath'] === undefined) {
-    return cb('501');
+    return cb('428');
   }
 }
 
