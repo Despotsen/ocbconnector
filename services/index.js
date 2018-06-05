@@ -1,7 +1,9 @@
 const entities = require('./entities');
-const upload = require('./upload');
+const fileCheck = require('./checks').fileCheck;
+const codeCheck = require('./checks').codeChecker;
 
 module.exports = {
   entities,
-  upload
+  fileCheck,
+  codeCheck
 };

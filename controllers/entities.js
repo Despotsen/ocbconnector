@@ -1,6 +1,5 @@
-const { entities, upload } = require('../services/');
-const messages = require('../utils/message.json');
-const config = require('../config');
+const { entities, codeCheck, fileCheck } = require('../services/');
+const utils = require('../utilities/utils.json');
 const path = require('path');
 
 function getEntities(req, res, id) {
@@ -20,36 +19,17 @@ function postEntities(req, res, file) {
       entitiesOperation.errorHandle(res, err);
     }
   });
+  res.json('All good')
 }
 
-const entitiesOperation = {
+const entitiesOperation = { 
 
   errorHandle: (res, code) => {
     res.status(code)
-      .json(codeChecker(code));
+      .json(codeCheck(code));
   }
 
 };
-
-function codeChecker(code) {
-  if (!code) {
-    return messages['500'];
-  }
-  return messages[code];
-}
-
-function fileCheck(file, cb) {
-  allowedExt = config.ext;
-
-  if (!file) {
-    return cb('400')
-  }
-
-  if (!allowedExt.includes(path.extname(file.originalname))) {
-    return cb('400')
-  }
-  
-}
 
 module.exports = {
   getEntities,

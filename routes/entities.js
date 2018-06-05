@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const { entities } = require('../controllers/');
-const { upload } = require('../services');
+const { upload } = require('../middlewares');
 
 module.exports = () => {
   router.route('/v1/entities')
