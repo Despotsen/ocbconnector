@@ -8,24 +8,24 @@ function getEntities(req, res, id) {
     })
     .catch((error) => {
       entitiesOperation
-        .errorHandle(res, error.message, error.statusCode || 500);
+        .errorHandle(res, error.statusCode || 500);
     });
 }
 
-function postEntities(req, res) {
-  res.status(200).json('Hello from post');
+function postEntities(req, res, next) {
+  res.json('Hello from post');
 }
 
 const entitiesOperation = {
 
-  errorHandle: (res, message, code) => {
+  errorHandle: (res, code) => {
     res.status(code)
-      .json(msgRes(code));
+      .json(codeChecker(code));
   }
 
 };
 
-function msgRes(code) {
+function codeChecker(code) {
   if (!code) {
     return messages['500'];
   }
