@@ -1,26 +1,35 @@
 const request = require('request-promise');
 const url = require('../config').orion_url;
 
-function processEntities(id) {
+function processEntities(id,headers) {
+  console.log(id, headers)
   if (!id) {
-    return entitiesOperations.getEntities();
+    return entitiesOperations.getEntities(headers);
   }
-  return entitiesOperations.getEntity(id);
+  return entitiesOperations.getEntity(id, headers);
 }
 
 const entitiesOperations = {
 
-  getEntities: () => {
+  getEntities: (headers) => {
     return request({
       method: 'GET',
+      headers: {
+        "Fiware-Service": headers['fiware-service'],
+        "Fiware-ServicePath": headers['fiware-servicepath']
+      },
       uri: url,
       json: true
     });
   },
 
-  getEntity: (id) => {
+  getEntity: (id, headers) => {
     return request({
       method: 'GET',
+      headers: {
+        "Fiware-Service": headers['fiware-service'],
+        "Fiware-ServicePath": headers['fiware-servicepath']
+      },
       uri: url + id,
       json: true
     });

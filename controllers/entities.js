@@ -1,9 +1,14 @@
-const { entities, codeCheck, fileCheck } = require('../services/');
+const { entities, codeCheck, fileCheck, headersCheck } = require('../services/');
 const utils = require('../utilities/utils.json');
 const path = require('path');
 
-function getEntities(req, res, id) {
-  entities.processEntities(id)
+function getEntities(req, res, id, headers) {
+
+  headersCheck(headers, (err) => {
+    if(err) {
+      entitiesOperation.errorHandle(res, err)
+    } else {
+      entities.processEntities(id, headers)
     .then((result) => {
       res.status(200).json(result);
     })
@@ -11,15 +16,18 @@ function getEntities(req, res, id) {
       entitiesOperation
         .errorHandle(res, error.statusCode || 500);
     });
+    }
+  });
+
 }
 
 function postEntities(req, res, file) {
-  fileCheck(file[0], (err) => {
+  fileCheck(file, (err) => {
     if (err) {
       entitiesOperation.errorHandle(res, err);
     }
   });
-  res.json('All good')
+  res.json('good')
 }
 
 const entitiesOperation = { 

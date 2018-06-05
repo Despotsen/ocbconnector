@@ -21,7 +21,18 @@ function fileCheck(file, cb) {
   
 }
 
+function headerCheck(headers, cb) {
+  if(headers['fiware-service'] === undefined) {
+    return cb('501');
+  }
+
+  if(headers['fiware-servicepath'] === undefined) {
+    return cb('501');
+  }
+}
+
 module.exports = {
   codeChecker,
-  fileCheck
-}
+  fileCheck,
+  headerCheck
+};
