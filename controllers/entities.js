@@ -6,17 +6,17 @@ function getEntities(req, res, id, headers) {
 
   headersCheck(headers, (err) => {
     if(err) {
-      entitiesOperation.errorHandle(res, err)
-    } else {
-      entities.processEntities(id, headers)
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((error) => {
-      entitiesOperation
-        .errorHandle(res, error.statusCode || 500);
-    });
+    entitiesOperation.errorHandle(res, err);
     }
+  });
+
+  entities.processEntities(id, headers)
+  .then((result) => {
+    res.status(200).json(result);
+  })
+  .catch((error) => {
+    entitiesOperation
+      .errorHandle(res, error.statusCode || 500);
   });
 
 }
@@ -34,7 +34,7 @@ const entitiesOperation = {
 
   errorHandle: (res, code) => {
     res.status(code)
-      .json(codeCheck(code));
+      .end(JSON.stringify(codeCheck(code)), 'binary');
   }
 
 };
