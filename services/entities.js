@@ -2,7 +2,6 @@ const request = require('request-promise');
 const url = require('../config').orion_url;
 
 function processEntities(id,headers) {
-  console.log(id, headers)
   if (!id) {
     return entitiesOperations.getEntities(headers);
   }
