@@ -21,12 +21,20 @@ function getEntities(req, res, id, headers) {
 
 }
 
-function postEntities(req, res, file) {
+function postEntities(req, res, file, headers) {
+
+  headersCheck(headers, (err) => {
+    if(err) {
+    entitiesOperation.errorHandle(res, err);
+    }
+  });
+
   fileCheck(file, (err) => {
     if (err) {
       entitiesOperation.errorHandle(res, err);
     }
   });
+  
   res.json('good')
 }
 

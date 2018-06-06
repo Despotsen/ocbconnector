@@ -11,7 +11,7 @@ module.exports = () => {
     })
     .post(upload.multer,
       (req, res, next) => {
-      entities.postEntities(req, res, req.files[0]);
+      entities.postEntities(req, res, req.files[0], req.headers);
     });
 
   router.route('/v1/entities/:id')
