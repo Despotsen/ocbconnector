@@ -1,4 +1,4 @@
-const { entities, codeCheck, fileCheck, headersCheck } = require('../services/');
+const { entities, codeCheck, fileCheck, headersCheck, parser } = require('../services/');
 const utils = require('../utilities/utils.json');
 const path = require('path');
 
@@ -34,8 +34,14 @@ function postEntities(req, res, file, headers) {
       entitiesOperation.errorHandle(res, err);
     }
   });
-  
-  res.json('good')
+
+  parser.parse(file.buffer.toString()).then((result) => {
+    res.json(result);
+  })
+  .catch((error) => {
+    res.json(error)
+  });
+
 }
 
 const entitiesOperation = { 
