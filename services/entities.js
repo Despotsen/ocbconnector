@@ -35,6 +35,19 @@ const entitiesOperations = {
   }
 };
 
+createEntity: (data,headers) => {
+  return request({
+    method: 'POST',
+    headers: {
+      "Fiware-Service": headers['fiware-service'],
+      "Fiware-ServicePath": headers['fiware-servicepath']
+    },
+    uri: `${url}?options=keyValues`,
+    body: data,
+    json:true
+  });
+}
+
 module.exports = {
   processEntities
 };
