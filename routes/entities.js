@@ -9,14 +9,21 @@ module.exports = () => {
     .get((req, res) => {
       entities.getEntities(req, res, req.params.id, req.headers);
     })
-    .post(upload.multer,
-      (req, res, next) => {
-      entities.postEntities(req, res, req.files[0], req.headers);
-    });
+    .post(
+      upload.multer,
+      (req, res) => {
+        entities.postEntities(req, res, req.files[0], req.headers);
+      }
+    );
 
   router.route('/v1/entities/:id')
     .get((req, res) => {
       entities.getEntities(req, res, req.params.id, req.headers);
+    });
+
+  router.route('/v1/rules/:id')
+    .get((req, res) => {
+      res.json(`Rules: ${req.params.id}`);
     });
 
   return router;
