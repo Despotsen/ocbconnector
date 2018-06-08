@@ -9,26 +9,29 @@ function codeChecker(code) {
 }
 
 function fileCheck(file, cb) {
-  allowedExt = utils['ext'];
+  const allowedExt = utils.ext;
 
   if (!file) {
-    return cb('400')
+    return cb('400');
   }
 
   if (!allowedExt.includes(path.extname(file.originalname))) {
-    return cb('400')
+    return cb('400');
   }
-  
+
+  return cb(null, true);
 }
 
 function headerCheck(headers, cb) {
-  if(headers['fiware-service'] === undefined) {
+  if (headers['fiware-service'] === undefined) {
     return cb('428');
   }
 
-  if(headers['fiware-servicepath'] === undefined) {
+  if (headers['fiware-servicepath'] === undefined) {
     return cb('428');
   }
+
+  return cb(null, true);
 }
 
 module.exports = {
