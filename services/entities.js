@@ -8,6 +8,13 @@ function processEntities(id,headers) {
   return entitiesOperations.getEntity(id, headers);
 }
 
+function sendEntities(data, headers, operation) {
+  if(!operation) {
+    return entitiesOperations.createEntity(data, headers);
+  }
+  return entitiesOperations
+}
+
 const entitiesOperations = {
 
   getEntities: (headers) => {
@@ -32,21 +39,32 @@ const entitiesOperations = {
       uri: url + '/' + id,
       json: true
     });
+  },
+
+  createEntity: (data,headers) => {
+    return request({
+      method: 'POST',
+      headers: {
+        "Fiware-Service": headers['fiware-service'],
+        "Fiware-ServicePath": headers['fiware-servicepath']
+      },
+      uri: `${url}/${data.id}/attrs?options=keyValues`,
+      body: Object.assign({}, data, {
+        id: undefined,
+        type: undefined
+      }),
+      json:true
+    });
+  },
+
+  updateEntity: (data, headers) => {
+    return request({
+
+    });
   }
 };
 
-createEntity: (data,headers) => {
-  return request({
-    method: 'POST',
-    headers: {
-      "Fiware-Service": headers['fiware-service'],
-      "Fiware-ServicePath": headers['fiware-servicepath']
-    },
-    uri: `${url}?options=keyValues`,
-    body: data,
-    json:true
-  });
-}
+
 
 module.exports = {
   processEntities
