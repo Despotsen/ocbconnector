@@ -5,8 +5,6 @@ const fs = require('fs');
 
 const testId = 'depositpoint:02210001-0000';
 
-console.log()
-
 chai.use(require('chai-http'));
 
 describe('API endpoint /v1/entities', function () {
