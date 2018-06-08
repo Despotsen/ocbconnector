@@ -29,7 +29,7 @@ const entitiesOperations = {
         "Fiware-Service": headers['fiware-service'],
         "Fiware-ServicePath": headers['fiware-servicepath']
       },
-      uri: url + id,
+      uri: url + '/' + id,
       json: true
     });
   }
