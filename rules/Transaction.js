@@ -1,13 +1,14 @@
+const rules  = require('../utilities');
 
 const Transaction =  {
-  id: String,
-  type: String,
-  refEmitter: String,
-  refReceiver: String,
+  id: rules.mandatoryCheck,
+  type: rules.mandatoryCheck,
+  refEmitter: rules.mandatoryCheck,
+  refReceiver: rules.mandatoryCheck,
   refCapturer: String,
-  date: String,
-  refTransferredResources: String,
-  transferredLoad: String
+  date: rules.mandatoryCheck,
+  refTransferredResources: rules.mandatoryCheck,
+  transferredLoad: rules.commaNumToUnitsMandatory
 }
 
 module.exports = Transaction;

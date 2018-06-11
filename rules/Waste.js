@@ -1,11 +1,12 @@
+const rules  = require('../utilities');
 
 const Waste = {
-  id: String,
-  family: String,
-  type: String,
-  name: String,
+  id: rules.mandatoryCheck,
+  family: rules.mandatoryCheck,
+  type: rules.mandatoryCheck,
+  name: rules.mandatoryCheck,
   description: String,
-  refCategory: String,
+  refCategory: rules.mandatoryCheck,
   definitionSource: String,
   wasteCode: String
 }
