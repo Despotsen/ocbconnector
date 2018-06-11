@@ -1,0 +1,37 @@
+
+const DepositPoint = {
+  id: String,
+  type: String,
+  family: String,
+  serialNumber: String,
+  refSortingType: String,
+  description: String,
+  refType: String,
+  storedWasteOrigin: String,
+  location: String,
+  address: String,
+  fillingLevel: String,
+  cargoWeight: String,
+  temperature: String,
+  methaneConcentration: String,
+  regulation: String,
+  responsible: String,
+  owner: String,
+  dateServiceStarted: String,
+  dateLastEmptying: String,
+  nextActuationDeadline: String,
+  actuationHours: String,
+  openingHours: String,
+  dateLastCleaning: String,
+  nextCleaningDeadline: String,
+  refDepositPointIsle: String,
+  status: String,
+  color: String,
+  image: String,
+  annotations: String,
+  areaServed: String,
+  dateModified: String,
+  refDevice: String
+};
+
+module.exports = DepositPoint;

@@ -1,0 +1,36 @@
+
+const DepoistPointType = {
+  id: String,
+  type: String,
+  family: String,
+  name: String,
+  refInputs: String,
+  refOutputs: String,
+  width: String,
+  height: String,
+  depth: String,
+  weight: String,
+  cargoVolume: String,
+  maximumLoad: String,
+  recommendedLoad: String,
+  category: String,
+  insertHolesNumber: String,
+  insertHoleWidth: String,
+  insertHoleHeight: String,
+  loadType: String,
+  madeOf: String,
+  madeOfCode: String,
+  brandName: String,
+  modelName: String,
+  manufacturerName: String,
+  colors: String,
+  image: String,
+  compliantWith: String,
+  accessLimitation: String,
+  userIdentification: String,
+  inputControl: String,
+  maximumInputVolume: String,
+  features: String
+}
+
+module.exports = DepoistPointType;
