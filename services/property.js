@@ -54,7 +54,61 @@ function rulesCheck(parsedData) {
   return rules;
 }
 
+function processEntity(rules, entity, option) {
+  propertyChecks(rules, entity, option);
+  const rulesProperties = Object.keys(rules);
+  const result = {};
+
+  rulesProperties.forEach((property) => {
+    try {
+      result[property] = processEntityProperty(rules, entity, property);
+    } catch (error) {
+      throw new Error(`Property ${property} failed attribute check in ${entity.id}`);
+    }
+  });
+
+  return result;
+}
+
+function processEntityProperty(rules, entity, property) {
+  let rule;
+  if (typeof rules[property] === 'function') {
+    rule = [property, rules[property]];
+  } else if (rules[property] instanceof Array) {
+    rule = rules[property];
+  } else {
+    throw new Error(`Rules ${property} rule was not of supported type.`)
+  }
+  return convertProperties(rule, entity);
+}
+
+function convertProperties(ruleArray, entity) {
+  const arrayDuplicate = ruleArray.slice();
+  const rule = arrayDuplicate.pop();
+
+  const mapping = property => entity[findProperty(entity, property)];
+
+  const args = arrayDuplicate.map(mapping);
+  
+  const result = rule(...args);
+
+  if (result === null || result === undefined) {
+    throw new Error(`${mapping} return null or undefined`);
+  }
+  if (result !== 'undefined')
+    return result;
+}
+
+function findProperty(target, property) {
+  const targetProperty = Object.keys(target);
+  const approvedProperties = targetProperty
+    .filter(targetProperty => {
+      return property.toLowerCase() === targetProperty.toLowerCase()
+    });
+  return approvedProperties[0];
+}
+
 module.exports = {
-  propertyChecks,
-  rulesCheck
+  rulesCheck,
+  processEntity
 };
