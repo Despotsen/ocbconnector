@@ -37,5 +37,5 @@ function headerCheck(headers, cb) {
 module.exports = {
   codeChecker,
   fileCheck,
-  headerCheck
+  headerCheck,
 };
