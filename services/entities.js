@@ -3,50 +3,50 @@ const url = require('../config').orion_url;
 
 const entitiesOperations = {
 
-  getEntities: headers => request({
+  getEntities: (headers) => request({
     method: 'GET',
     headers: {
       'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath']
+      'Fiware-ServicePath': headers['fiware-servicepath'],
     },
     uri: url,
-    json: true
+    json: true,
   }),
 
   getEntity: (id, headers) => request({
     method: 'GET',
     headers: {
       'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath']
+      'Fiware-ServicePath': headers['fiware-servicepath'],
     },
     uri: `${url}/${id}`,
-    json: true
+    json: true,
   }),
 
   createEntity: (data, headers) => request({
     method: 'POST',
     headers: {
       'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath']
+      'Fiware-ServicePath': headers['fiware-servicepath'],
     },
     uri: `${url}?options=keyValues`,
     body: data,
-    json: true
+    json: true,
   }),
 
   updateEntity: (data, headers) => request({
     method: 'POST',
     headers: {
       'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath']
+      'Fiware-ServicePath': headers['fiware-servicepath'],
     },
     uri: `${url}/${data.id}/attrs?options=keyValues`,
     body: Object.assign({}, data, {
       id: undefined,
-      type: undefined
+      type: undefined,
     }),
-    json: true
-  })
+    json: true,
+  }),
 };
 
 function processEntities(id, headers) {
@@ -64,5 +64,5 @@ function sendEntities(data, headers, operation) {
 }
 
 module.exports = {
-  processEntities
+  processEntities,
 };
