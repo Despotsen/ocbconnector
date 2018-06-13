@@ -1,4 +1,4 @@
-const response = require('../utilities');
+const response = require('../utilities/response');
 const moment = require('moment');
 
 function commaNumToUnits(oldNum) {
