@@ -5,7 +5,7 @@ const {
 const entitiesOperation = {
   errorHandle: (res, code) => {
     res.status(code)
-      .end(codeCheck);
+      .end(codeCheck(code));
   }
 };
 
@@ -39,15 +39,21 @@ function postEntities(req, res, file, headers) {
     }
   });
 
-  parser.parse(file.buffer.toString()).then((result) => {
-    res.json(result);
-  })
+  return parser.parse(file.buffer.toString()).then((data) => {
+    entities.sendEntities(data.result, headers).then((result) => {
+      res.json(result)
+    })
     .catch((error) => {
-      res.json(error);
+      res.json(error)
     });
+  })
+  .catch((error) => {
+    console.log(error)
+    res.json(error);
+  });
 }
 
 module.exports = {
   getEntities,
-  postEntities
+  postEntities,
 };
