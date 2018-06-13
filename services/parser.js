@@ -1,7 +1,7 @@
 const csv = require('csvtojson');
 const ruleChecks = require('../services/property').rulesCheck;
-const propertyChecks = require('./property').propertyChecks;
 const processEntity = require('./property').processEntity;
+const { entities } = require('../services');
 
 function parse(rawData, option) {
   return parseOperations.getData(rawData)
@@ -34,7 +34,6 @@ const parseOperations = {
   getEntity: (rules, parsedData, option) => {
     const result = [];
     const errors = [];
-
     parsedData.forEach((entity) => {
      try {
       result.push(processEntity(rules, entity));
@@ -42,6 +41,9 @@ const parseOperations = {
        errors.push(error.message);
      }
     });
+    if (errors.length !== 0) {
+      return Promise.reject({errors});
+    }
     return Promise.resolve({errors, result});
   },
 };
