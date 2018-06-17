@@ -36,14 +36,14 @@ const parseOperations = {
     const errors = [];
     parsedData.forEach((entity) => {
      try {
-      result.push(processEntity(rules, entity));
+      result.push(processEntity(rules, entity, option));
      } catch (error) {
        errors.push(error.message);
      }
     });
-    if (errors.length !== 0) {
-      return Promise.reject({errors});
-    }
+    // if (errors.length !== 0) {
+    //   return Promise.reject({errors});
+    // }
     return Promise.resolve({errors, result});
   },
 };
