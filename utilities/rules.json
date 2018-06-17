@@ -1,0 +1,116 @@
+{
+  "rules": [
+    "DepositPoint", 
+    "DepositPointType", 
+    "DepositPointIsle",
+    "SortingType",
+    "Transaction",
+    "Vehicle",
+    "VehicleType",
+    "Waste",
+    "WasteCategory"
+  ],
+
+  "Waste": {
+    "id": "Mandatory:Text, Unique identifier. Example 'waste:6'",
+    "family": "Mandatory:Text, Fixed to 'Resource'",
+    "type": "Mandatory:Text, Resource type. In this case fixed to 'Waste'",
+    "name": "Mandatory:Text, Waste Name. Example 'Green glass bottle'",
+    "description": "Optional:Text, Waste description. Example 'Bottle made of green glass'",
+    "refCategory": "Mandatory:Text, Reference to category entity this belongs. Example [wastecategory:9]",
+    "definitionSource": "Optional:Text, Where this characterization comes from",
+    "wasteCode": "Optional:Text, LER waste code."
+  },
+
+  "WasteCategory": {
+    "id": "Mandatory:Text, Unique identifier. Example 'wastecategory:9'",
+    "family": "Mandatory:Text, Fixed to 'ResourceCategory'",
+    "type": "Mandatory:Text, Resource category type. In this case fixed to 'WasteCategory'",
+    "name": "Mandatory:Text, WasteCategory Name. Example 'Glass bottles'",
+    "description": "Optional:Text, WasteCategory description. Example 'Glass bottles including whiteand green glass'"
+  },
+
+  "SortingType": {
+    "id": "Mandatory:Text, Unique identifier. Example 'sortingtype:12a'",
+    "family": "Mandatory:Text, Entity Type. In this case fixed to 'ResourceCollection'",
+    "type": "Mandatory:Text, Resource collection subtype. In this case fxed to 'SortingType'",
+    "name": "Mandatory:Text, SortingType Name. Example 'Color Glass collection'",
+    "description": "Optonal:Text, SortingType description. Example 'Collection of colored glass bottles'",
+    "regulation": "Optonal:Text, Regulation under which the SortingType is operating.",
+    "refResources": "Mandatory:List<ID>, List of waste entities composing the SortingType. Example [waste:6, waste18]",
+    "color": "Mandatory:Text, Sorting type's associated color. Example 'Green'",
+    "annotations": "Optonal:Text, Attribute reserved for annotations (incidences, remarks, etc.)",
+    "areaServed": "Optonal:Text, Higher level area to which the sorting type belongs to. It can be used to define the area where the sorting type is applied, etc."
+  },
+
+  "Transaction": {
+    "id": "Mandatory:Text, Unique identifier. Example `transaction:3a`",
+    "type": "Mandatory:Text, Entity Type. Fixed to `Transaction`",
+    "refEmitter": "Mandatory:Text, Transaction's emitter entity containing an Agent ID.",
+    "refReceiver": "Mandatory:Text, Transaction's receiver entity containing an Agent ID.",
+    "refCapturer": "Optonal:Text, Reference to the Id of the Device entity if exists, that captured the transaction containing an Agent ID..",
+    "date": "Mandatory:Text, Timestamp which represents when the transaction was made",
+    "refTransferredResources": "Optonal:Text, List of Resource IDs transferred in this transaction.",
+    "transferredLoad": "Optonal:Text, Load transferred in this transaction (Sum of all the resources transferrer = In this load amount we know that the cited resources exist but no in which percentage each)"
+  },
+
+  "Vehicle": {
+    "id": "Mandatory:Text, Unique identifier. Example `wasteentity:13`",
+    "type": "Mandatory:Text, Vehicle",
+    "family": "Mandatory:Text, Fixed to `Agent`",
+    "vehiclePlateIdentifier": "Mandatory:Text, The Vehicle Identification Number (VIN) is a unique serial number used by the automotive industry to identify individual motor vehicles.",
+    "name": "Optonal:Text, ",
+    "location": "Optona:GeoJSON, Vehicle's location represented by a GeoJSON Point",
+    "refType": "Mandatory:Text, Reference to the VehicleType it belongs",
+    "refInputs": "Optonal:Text, ",
+    "refOutputs": "Optonal:Text, ",
+    "owner": "Mandatory:Text, ",
+    "category": "Optonal:Text, Vehicle category(ies) from an external point of view. This is different than the vehicle type (car, lorry, etc.) represented by the `vehicleType` property. (`public`, `private`, `municipalServices`, `specialUsage`,`tracked`, `nonTracked`)",
+    "speed": "Optonal:Number, Denotes the magnitude of the horizontal component of the vehicle's current velocity and is specified in Kilometers per Hour. If provided, the value of the speed attribute must be a non-negative real number. `null` *MAY* be used if `speed` is transiently unknown for some reason.",
+    "cargoWeight": "Optonal:Number, Current weight of the vehicle's cargo",
+    "purchaseDate": "Optonal:Date, The date the item e.g. vehicle was purchased by the current owner.",
+    "mileageFromOdometer": "Optonal:Number, The total distance travelled by the particular vehicle since its initial production, as read from its odometer.",
+    "vehicleConfiguration": "Optonal:Text,A short text indicating the configuration of the vehicle, e.g. '5dr hatchback ST 2.5 MT 225 hp' or 'limited edition'",
+    "color": "Optonal:Text, Vehicle's color",
+    "features": "Optonal:Text, (`gps`, `airbag`, `overspeed`, `abs`, `wifi`, `backCamera`, `proximitySensor`, `disabledRamp`, `alarm`, `internetConnection`)  or any other needed by the application.",
+    "serviceProvided": "Optonal:Text, `garbageCollection`, `parksAndGardens`, `construction`, `streetLighting`, `roadSignalling`,`cargoTransport`, `urbanTransit`, `maintenance`, `streetCleaning`, `wasteContainerCleaning`, `auxiliaryServices`,`goodsSelling`,  `fairground`, `specialTransport`) or any other value needed by an specific application.",
+    "vehicleSpecialUsage": "Optonal:Text, Indicates whether the vehicle is been used for special purposes, like commercial rental, driving school, or as a taxi. The legislation in many countries requires this information to be revealed when offering a car for sale. (`taxi`, `ambulance`, `police`, `fireBrigade`, `schoolTransportation`, `military`)",
+    "areaServed": "Optonal:Text, Higher level area served by this vehicle. It can be used to group vehicles per responsible, district, neighbourhood, etc.",
+    "serviceStatus": "Optonal:Text, Vehicle status (from the point of view of the service provided). 'parked','onRoute','broken',etc."
+  },
+
+  "VehicleType": {
+    "id": "Mandatory:Text, Unique identifier. Example `wasteentitytype:8a`",
+    "type": "Mandatory:Text, Fixed to `VehicleType`",
+    "family": "Mandatory:Text, Fixed to `AgentType`",
+    "refInputs": "Mandatory:Text, Reference to the list of Input Resource entities. List of structured values containing entity id and a unit of estimated quantity per day.",
+    "refOutputs": "Mandatory:Text, Reference to the list of Output Resource entities. List of structured values containing entity id and a unit of estimated quantity per day.",
+    "name": "Mandatory:Text, Name given to the vehicle type",
+    "description": "Optonal:Text, Description about the model",
+    "vehicleType": "Mandatory:Text, Type of vehicle from the point of view of its characteristics. 'car','truck',etc.",
+    "brandName": "Mandatory:Text, ",
+    "numberOfAxes": "Optonal:Number, Number of axes the vehicle has",
+    "maxCargoPerAxe": "Optonal:Number",
+    "engineType": "Optonal:Text, Vehicle engine type",
+    "enginePower": "Optonal:Text, ",
+    "tireTypes": "Optonal:Text, ",
+    "modelName": "Optonal:Text, ",
+    "manufacturerName": "Optonal:Text, ",
+    "vehicleModelDate": "Optonal:Date, ",
+    "maxCargoWeight": "Optonal:Number, ",
+    "maxCargoVolume": "Optonal:Number, ",
+    "fuelDepositCapacity": "Optonal:Number, ",
+    "compactingRatio": "Optonal:Number, ",
+    "fuelType": "Optonal:Text, ",
+    "fuelConsumption": "Optonal:Text, ",
+    "height": "Optonal:Number, ",
+    "width": "Optonal:Number, ",
+    "depth": "Optonal:Number, ",
+    "weight": "Optonal:Number, ",
+    "loadType": "Optonal:Text, Back','Side', etc. loading type of the waste into the vehicle"
+  },
+
+  "DepositPoint": {
+    
+  }
+}
