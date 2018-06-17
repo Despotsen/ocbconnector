@@ -11,7 +11,7 @@ const VehicleType = {
   vehicleType: rules.mandatoryCheck,
   brandName: rules.mandatoryCheck,
   numberOfAxes: rules.commaNumToUnits,
-  maxCargoPerAxe: rules.commaNumToUnits,
+  maxCargoPerAxe: String,
   engineType: String,
   enginePower: String,
   tireTypes: String,

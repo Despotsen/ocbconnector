@@ -8,7 +8,7 @@ const DepositPointIsle = {
   name: String,
   description: String,
   features: rules.mandatoryCheck,
-  refDepositPoint: String,
+  refDepositPoint: rules.stringToArrayMandatory,
   areaServed: String,
   dateModified: String,
   dateCreated: String

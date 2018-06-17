@@ -6,7 +6,7 @@ const Vehicle = {
   family: rules.mandatoryCheck,
   vehiclePlateIdentifier: rules.mandatoryCheck,
   name: String,
-  location: rules.locationCheck,
+  location: rules.locationCheckNoMand,
   refType: rules.mandatoryCheck,
   refInputs: String,
   refOutputs: String,

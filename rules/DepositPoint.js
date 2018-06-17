@@ -26,7 +26,7 @@ const DepositPoint = {
   dateLastCleaning: String,
   nextCleaningDeadline: String,
   refDepositPointIsle: String,
-  status: String,
+  status: rules.mandatoryCheck,
   color: String,
   image: String,
   annotations: String,
