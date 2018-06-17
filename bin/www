@@ -7,19 +7,31 @@
 var app = require('../app');
 var debug = require('debug')('ocbconnector:server');
 var http = require('http');
+var https = require('https');
+const fs = require('fs');
+const config = require('../config');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || config.api_port);
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+if (!config.https) {
+  var server = http.createServer(app);
+} else {
+  const options = {
+    key: fs.readFileSync('./privateKey.key'),
+    cert: fs.readFileSync('./certificate.crt')
+  };
+  var server = https.createServer(options, app);
+}
+
 
 /**
  * Listen on provided port, on all network interfaces.
