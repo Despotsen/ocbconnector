@@ -67,10 +67,11 @@ function processEntity(rules, entity, option) {
     try {
       result[property] = processEntityProperty(rules, entity, property);
     } catch (error) {
-      throw new Error(`Property ${property} failed attribute check in ${entity.id}`);
+      if (option !== 'update') {
+        throw new Error(`Property ${property} failed attribute check in ${entity.id}`);
+        }
     }
   });
-
   return result;
 }
 
@@ -86,31 +87,33 @@ function processEntityProperty(rules, entity, property) {
   return convertProperties(rule, entity);
 }
 
-function convertProperties(ruleArray, entity) {
-  const arrayDuplicate = ruleArray.slice();
-  const rule = arrayDuplicate.pop();
+function convertProperties(array, entity) {
+  let arrayDuplicate = array.slice();
+  let rule = arrayDuplicate.pop();
+  let mappingFunction;
 
-  const mapping = (property) => entity[findProperty(entity, property)];
+      mappingFunction = function caseInsensitivePropertyMapping(property) {
+          let caseInsensitiveProperty = findProperty(entity, property);
+          if (caseInsensitiveProperty !== undefined) {
+              return entity[caseInsensitiveProperty];
+          }
+          throw new Error(`Property ${property} doesn't exist`);
+      };
 
-  const args = arrayDuplicate.map(mapping);
-
-  const result = rule(...args);
-
+  let args = arrayDuplicate.map(mappingFunction);
+  let result = rule(...args);
   if (result === null || result === undefined) {
-    throw new Error(`${mapping} return null or undefined`);
+      throw new Error(`${mappingFunction} returned null or undefined`);
   }
-  if (result !== 'undefined') {
-    return result;
-  }
+  return result;
 }
 
 function findProperty(target, property) {
-  const targetProperty = Object.keys(target);
-  const approvedProperties = targetProperty
-    .filter((targetProperty) => {
-      return property.toLowerCase() === targetProperty.toLowerCase();
-    });
-  return approvedProperties[0];
+  let targetProperties = Object.getOwnPropertyNames(target);
+  let viableProperties = targetProperties.filter((targetProperty) => {
+      return (property.toLowerCase() === targetProperty.toLowerCase());
+  });
+  return viableProperties[0];
 }
 
 module.exports = {
