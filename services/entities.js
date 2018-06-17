@@ -23,6 +23,16 @@ const entitiesOperations = {
     json: true,
   }),
 
+  getEntitiesType: (type, headers) => request({
+    method: 'GET',
+    headers: {
+      'Fiware-Service': headers['fiware-service'],
+      'Fiware-ServicePath': headers['fiware-servicepath'],
+    },
+    uri: `${url}entities?type=${type}`,
+    json: true
+  }),
+
   createEntity: (data, headers) => request({
     method: 'POST',
     headers: {
@@ -61,35 +71,16 @@ function processEntities(id, headers) {
   return entitiesOperations.getEntity(id, headers);
 }
 
-async function sendEntities(data, headers, operation) {
-  // const few = chunkArray(data, 10);
-  // const ps = [];
-  // if (!operation) {
-  //   if (data.length <= 1000) {
-  //     return entitiesOperations.createEntity(data, headers);
-  //   }
-  //   for(let i = 0; i<1; i++) {
-  //     console.log('Sending: ' + i, few[i].length)
-  //     ps.push(await entitiesOperations.createEntity(few[i], headers));
-  //     console.log('Finished: ' + i, few[i].length)
-  //   }
-  //   Promise.all(ps)
-  //   .then((results) => {
-  //     console.log(results)
-  //       return Promise.resolve('good')
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //     return Promise.reject(err);
-  //   })
-  // }
-  // return entitiesOperations.updateEntity(data, headers);
+function processEntitiesByType(type, headers) {
+  return entitiesOperations.getEntitiesType(type, headers);
+}
 
+async function sendEntities(data, headers, operation) {
   var slicer = 0;
   var allBatches = []
   while (data.length > slicer) {
     let anchor = slicer;
-    slicer += 100;
+    slicer += 1000;
     allBatches.push(
       entitiesOperations.createEntity(data.slice(anchor,slicer), headers)
     );
@@ -97,25 +88,39 @@ async function sendEntities(data, headers, operation) {
     allBatches[allBatches.length-1]
   }
   return Promise.all(allBatches)
-    .then((x) => {return Promise.resolve('perfect yes money')})
-    .catch((e)=>{console.log(e)})
+    .then((x) => {return Promise.resolve('Etities created successfuly.')})
+    .catch((e)=>{return Promise.reject(e)})
 }
 
-function chunkArray(myArray, chunk_size){
-  var index = 0;
-  var arrayLength = myArray.length;
-  var tempArray = [];;
-  
-  for (index = 0; index < arrayLength; index += chunk_size) {
-      myChunk = myArray.slice(index, index+chunk_size);
-      tempArray.push(myChunk);
+async function updateEntities(data, headers) {
+  var slicer = 0;
+  var allBatches = []
+  while (data.length > slicer) {
+    let anchor = slicer;
+    slicer += 100;
+    allBatches.push(
+      entitiesOperations.updateEntity(data.slice(anchor,slicer), headers)
+    );
+    console.log(allBatches.length-1);
+    allBatches[allBatches.length-1]
   }
-
-   return tempArray;
+  return Promise.all(allBatches)
+    .then((x) => {
+      console.log(x)
+      return Promise.resolve(`Entities successfuly updated`)
+    })
+    .catch((e)=>{
+      if (e.statusCode === 404) {
+        return Promise.reject(e)
+      }
+      return Promise.reject(e)
+    })
 }
 
 module.exports = {
   processEntities,
   sendEntities,
-  entitiesOperations
+  entitiesOperations,
+  processEntitiesByType,
+  updateEntities
 };

@@ -26,6 +26,24 @@ function getEntities(req, res, id, headers) {
     });
 }
 
+function getEntitiesType(res, type, headers) {
+  headersCheck(headers, (err) => {
+    if (err) {
+      entitiesOperation.errorHandle(res, err);
+    }
+  });
+
+  entities.processEntitiesByType(type, headers)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      entitiesOperation
+        .errorHandle(res, error.statusCode || 500);
+    })
+
+}
+
 function postEntities(req, res, file, headers) {
   headersCheck(headers, (err) => {
     if (err) {
@@ -41,19 +59,49 @@ function postEntities(req, res, file, headers) {
 
   return parser.parse(file.buffer.toString()).then((data) => {
     entities.sendEntities(data.result, headers).then((result) => {
-      res.json(result)
+      res.json([data.errors,result])
     })
     .catch((error) => {
       res.json(error)
     });
   })
   .catch((error) => {
-    console.log(error)
     res.json(error);
   });
+}
+
+function updateEntities(req, res, file, headers) {
+  headersCheck(headers, (err) => {
+    if (err) {
+      entitiesOperation.errorHandle(res, err);
+    }
+  });
+
+  fileCheck(file, (err) => {
+    if (err) {
+      entitiesOperation.errorHandle(res, err);
+    }
+  });
+
+  return parser.parse(file.buffer.toString(),'update')
+    .then((data) => {
+
+      entities.updateEntities(data.result, headers)
+        .then((result) => {
+          res.json([data.errors,result])
+        })
+        .catch((error) => {
+          res.json(error);
+        })
+    })
+    .catch((error) => {
+      res.json(error)
+    })
 }
 
 module.exports = {
   getEntities,
   postEntities,
+  getEntitiesType,
+  updateEntities
 };
