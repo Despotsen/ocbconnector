@@ -51,9 +51,16 @@ function dateCheck(date) {
 }
 
 function mandatoryCheck(attribute) {
-  if (!attribute) {
-    return null;
+  if(!attribute) {
+    return null
   }
+  const test = attribute.split('');
+  const forbide = ["<", ">", "'", ";", "(", ")"]
+  test.forEach(element => {
+    if(forbide.includes(element)) {
+      throw "Forbiden char";
+    }
+  });
   return attribute;
 }
 
@@ -135,5 +142,5 @@ module.exports = {
   commaNumToUnitsMandatory,
   removeForbiden,
   removeForbidenStrict,
-  locationCheckNoMand
+  locationCheckNoMand,
 };
