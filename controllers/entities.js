@@ -65,7 +65,7 @@ function postEntities(req, res, file, headers) {
           {
             "Entity attribute errors:": data.errors.length,
             "Entities created:":data.result.length,
-            "Info on rules for given type:": `v1/rules/${data.result[0].type}`
+            "Info on rules for given type:": `v1/rules/${data.result[0].type}`,
           },
           data.errors,
           resp(data.result, 'Create')
