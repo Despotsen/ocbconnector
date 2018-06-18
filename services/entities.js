@@ -88,8 +88,12 @@ async function sendEntities(data, headers, operation) {
     allBatches[allBatches.length-1]
   }
   return Promise.all(allBatches)
-    .then((x) => {return Promise.resolve('Etities created successfuly.')})
-    .catch((e)=>{return Promise.reject(e)})
+    .then((x) => {
+      return Promise.resolve('Etities created successfuly.')
+    })
+    .catch((e)=>{
+      return Promise.reject(e)
+    });
 }
 
 async function updateEntities(data, headers) {
