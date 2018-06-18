@@ -2,6 +2,8 @@ const {
   entities, codeCheck, fileCheck, headersCheck, parser
 } = require('../services/');
 
+const resp = require('../utilities/response').resposneResult;
+
 const entitiesOperation = {
   errorHandle: (res, code) => {
     res.status(code)
@@ -59,7 +61,15 @@ function postEntities(req, res, file, headers) {
 
   return parser.parse(file.buffer.toString()).then((data) => {
     entities.sendEntities(data.result, headers).then((result) => {
-      res.json([data.errors,result])
+        res.json([
+          {
+            "Entity attribute errors:": data.errors.length,
+            "Entities created:":data.result.length,
+            "Info on rules for given type:": `v1/rules/${data.result[0].type}`
+          },
+          data.errors,
+          resp(data.result, 'Create')
+        ]);
     })
     .catch((error) => {
       res.json(error)
@@ -88,7 +98,15 @@ function updateEntities(req, res, file, headers) {
 
       entities.updateEntities(data.result, headers)
         .then((result) => {
-          res.json([data.errors,result])
+          res.json([
+            {
+              "Entity attribute errors:": data.errors.length,
+              "Entities created:":data.result.length,
+              "Info on rules for given type:": `v1/rules/${data.result[0].type}`
+            },
+            data.errors,
+            resp(data.result, 'Create')
+          ]);
         })
         .catch((error) => {
           res.json(error);
