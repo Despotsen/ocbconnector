@@ -19,7 +19,8 @@
     "description": "Optional:Text, Waste description. Example 'Bottle made of green glass'",
     "refCategory": "Mandatory:Text, Reference to category entity this belongs. Example [wastecategory:9]",
     "definitionSource": "Optional:Text, Where this characterization comes from",
-    "wasteCode": "Optional:Text, LER waste code."
+    "wasteCode": "Optional:Text, LER waste code.",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "WasteCategory": {
@@ -27,7 +28,8 @@
     "family": "Mandatory:Text, Fixed to 'ResourceCategory'",
     "type": "Mandatory:Text, Resource category type. In this case fixed to 'WasteCategory'",
     "name": "Mandatory:Text, WasteCategory Name. Example 'Glass bottles'",
-    "description": "Optional:Text, WasteCategory description. Example 'Glass bottles including whiteand green glass'"
+    "description": "Optional:Text, WasteCategory description. Example 'Glass bottles including whiteand green glass'",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "SortingType": {
@@ -40,7 +42,8 @@
     "refResources": "Mandatory:List<ID>, List of waste entities composing the SortingType. Example [waste:6, waste18]",
     "color": "Mandatory:Text, Sorting type's associated color. Example 'Green'",
     "annotations": "Optonal:Text, Attribute reserved for annotations (incidences, remarks, etc.)",
-    "areaServed": "Optonal:Text, Higher level area to which the sorting type belongs to. It can be used to define the area where the sorting type is applied, etc."
+    "areaServed": "Optonal:Text, Higher level area to which the sorting type belongs to. It can be used to define the area where the sorting type is applied, etc.",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "Transaction": {
@@ -51,7 +54,8 @@
     "refCapturer": "Optonal:Text, Reference to the Id of the Device entity if exists, that captured the transaction containing an Agent ID..",
     "date": "Mandatory:Text, Timestamp which represents when the transaction was made",
     "refTransferredResources": "Optonal:Text, List of Resource IDs transferred in this transaction.",
-    "transferredLoad": "Optonal:Text, Load transferred in this transaction (Sum of all the resources transferrer = In this load amount we know that the cited resources exist but no in which percentage each)"
+    "transferredLoad": "Optonal:Text, Load transferred in this transaction (Sum of all the resources transferrer = In this load amount we know that the cited resources exist but no in which percentage each)",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "Vehicle": {
@@ -76,7 +80,8 @@
     "serviceProvided": "Optonal:Text, `garbageCollection`, `parksAndGardens`, `construction`, `streetLighting`, `roadSignalling`,`cargoTransport`, `urbanTransit`, `maintenance`, `streetCleaning`, `wasteContainerCleaning`, `auxiliaryServices`,`goodsSelling`,  `fairground`, `specialTransport`) or any other value needed by an specific application.",
     "vehicleSpecialUsage": "Optonal:Text, Indicates whether the vehicle is been used for special purposes, like commercial rental, driving school, or as a taxi. The legislation in many countries requires this information to be revealed when offering a car for sale. (`taxi`, `ambulance`, `police`, `fireBrigade`, `schoolTransportation`, `military`)",
     "areaServed": "Optonal:Text, Higher level area served by this vehicle. It can be used to group vehicles per responsible, district, neighbourhood, etc.",
-    "serviceStatus": "Optonal:Text, Vehicle status (from the point of view of the service provided). 'parked','onRoute','broken',etc."
+    "serviceStatus": "Optonal:Text, Vehicle status (from the point of view of the service provided). 'parked','onRoute','broken',etc.",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "VehicleType": {
@@ -107,7 +112,8 @@
     "width": "Optonal:Number, ",
     "depth": "Optonal:Number, ",
     "weight": "Optonal:Number, ",
-    "loadType": "Optonal:Text, Back','Side', etc. loading type of the waste into the vehicle"
+    "loadType": "Optonal:Text, Back','Side', etc. loading type of the waste into the vehicle",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "DepositPoint": {
