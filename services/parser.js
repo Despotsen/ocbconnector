@@ -41,9 +41,6 @@ const parseOperations = {
        errors.push(error.message);
      }
     });
-    // if (errors.length !== 0) {
-    //   return Promise.reject({errors});
-    // }
     return Promise.resolve({errors, result});
   },
 };
