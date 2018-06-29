@@ -8,6 +8,7 @@ const entitiesOperations = {
     headers: {
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
+      'X-Auth-Token:': headers['x-auth-token']
     },
     uri: `${url}entities/?limit=100`,
     json: true,
@@ -18,6 +19,7 @@ const entitiesOperations = {
     headers: {
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
+      'X-Auth-Token:': headers['x-auth-token']
     },
     uri: `${url}entities/${id}`,
     json: true,
@@ -28,6 +30,7 @@ const entitiesOperations = {
     headers: {
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
+      'X-Auth-Token:': headers['x-auth-token']
     },
     uri: `${url}entities?type=${type}`,
     json: true
@@ -39,6 +42,7 @@ const entitiesOperations = {
       'Content-Type': 'application/json',
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
+      'X-Auth-Token:': headers['x-auth-token']
     },
     uri: `${url}op/update?options=keyValues`,
     body: {
@@ -54,6 +58,7 @@ const entitiesOperations = {
       'Content-Type': 'application/json',
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
+      'X-Auth-Token:': headers['x-auth-token']
     },
     uri: `${url}op/update?options=keyValues`,
     body: {
@@ -101,7 +106,7 @@ async function updateEntities(data, headers) {
   var allBatches = []
   while (data.length > slicer) {
     let anchor = slicer;
-    slicer += 100;
+    slicer += 1000;
     allBatches.push(
       entitiesOperations.updateEntity(data.slice(anchor,slicer), headers)
     );
