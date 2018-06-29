@@ -31,6 +31,10 @@ function headerCheck(headers, cb) {
     return cb('428');
   }
 
+  if (headers['x-auth-token'] === undefined) {
+    return cb('428');
+  }
+
   return cb(null, true);
 }
 
