@@ -23,6 +23,7 @@ function getEntities(req, res, id, headers) {
       res.status(200).json(result);
     })
     .catch((error) => {
+      console.log(error)
       entitiesOperation
         .errorHandle(res, error.statusCode || 500);
     });
@@ -101,7 +102,7 @@ function updateEntities(req, res, file, headers) {
           res.json([
             {
               "Entity attribute errors:": data.errors.length,
-              "Entities created:":data.result.length,
+              "Entities updated:":data.result.length,
               "Info on rules for given type:": `v1/rules/${data.result[0].type}`
             },
             data.errors,
