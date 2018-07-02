@@ -1,6 +1,6 @@
 const config = {};
 
-config.orion_url = 'http://localhost:1026/v2/';
+config.orion_url = 'http://localhost/';
 
 config.api_port = '3001';
 
