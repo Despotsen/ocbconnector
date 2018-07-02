@@ -62,11 +62,12 @@ function postEntities(req, res, file, headers) {
 
   return parser.parse(file.buffer.toString()).then((data) => {
     entities.sendEntities(data.result, headers).then((result) => {
+      console.log(data.errors)
         res.json([
           {
             "Entity attribute errors:": data.errors.length,
             "Entities created:":data.result.length,
-            "Info on rules for given type:": `v1/rules/${data.result[0].type}`,
+            "Info on rules for given type:": typet(data.result),
           },
           data.errors,
           resp(data.result, 'Create')
@@ -99,14 +100,17 @@ function updateEntities(req, res, file, headers) {
 
       entities.updateEntities(data.result, headers)
         .then((result) => {
+          if(data.result.length === 0) {
+            console.log('nema')
+          }
           res.json([
             {
               "Entity attribute errors:": data.errors.length,
               "Entities updated:":data.result.length,
-              "Info on rules for given type:": `v1/rules/${data.result[0].type}`
+              "Info on rules for given type:": typet(data.result)
             },
             data.errors,
-            resp(data.result, 'Create')
+            resp(data.result, 'Update')
           ]);
         })
         .catch((error) => {
@@ -116,6 +120,13 @@ function updateEntities(req, res, file, headers) {
     .catch((error) => {
       res.json(error)
     })
+}
+
+function typet(data) {
+  if (data.length === 0) {
+    return "v1/rules/unknown"
+  }
+  return "v1/rules/" + data[0].type
 }
 
 module.exports = {
