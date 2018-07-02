@@ -1,6 +1,5 @@
 const request = require('request-promise');
 const url = require('../config').orion_url;
-
 const entitiesOperations = {
 
   getEntities: (headers) => request({
@@ -8,9 +7,9 @@ const entitiesOperations = {
     headers: {
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token:': headers['x-auth-token']
+      'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}entities/?limit=100`,
+    uri: `${url}v2/entities`,
     json: true,
   }),
 
@@ -19,9 +18,9 @@ const entitiesOperations = {
     headers: {
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token:': headers['x-auth-token']
+      'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}entities/${id}`,
+    uri: `${url}v2/entities?id=${id}`,
     json: true,
   }),
 
@@ -30,9 +29,9 @@ const entitiesOperations = {
     headers: {
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token:': headers['x-auth-token']
+      'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}entities?type=${type}`,
+    uri: `${url}v2/entities?type=${type}`,
     json: true
   }),
 
@@ -42,9 +41,9 @@ const entitiesOperations = {
       'Content-Type': 'application/json',
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token:': headers['x-auth-token']
+      'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}op/update?options=keyValues`,
+    uri: `${url}v2/op/update?options=keyValues`,
     body: {
       actionType: 'APPEND',
       entities: data
@@ -58,9 +57,9 @@ const entitiesOperations = {
       'Content-Type': 'application/json',
       'Fiware-Service': headers['fiware-service'],
       'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token:': headers['x-auth-token']
+      'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}op/update?options=keyValues`,
+    uri: `${url}v2/op/update?options=keyValues`,
     body: {
       actionType: 'UPDATE',
       entities: data,
