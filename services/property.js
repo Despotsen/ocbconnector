@@ -69,7 +69,9 @@ function processEntity(rules, entity, option) {
     } catch (error) {
       if (option !== 'update') {
         throw new Error(`Property ${property} failed attribute check in ${entity.id}`);
-        }
+      } else if (error.message !== '100') {
+        throw new Error(`Property ${property} failed attribute check in ${entity.id}`);
+      }
     }
   });
   return result;
@@ -97,7 +99,7 @@ function convertProperties(array, entity) {
           if (caseInsensitiveProperty !== undefined) {
               return entity[caseInsensitiveProperty];
           }
-          throw new Error(`Property ${property} doesn't exist`);
+          throw new Error(`100`);
       };
 
   let args = arrayDuplicate.map(mappingFunction);
