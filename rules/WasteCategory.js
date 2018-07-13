@@ -1,11 +1,11 @@
 const rules  = require('../utilities');
 
 const WasteCategory = {
-  id: rules.mandatoryCheck,
+  id: rules.id,
   family: rules.mandatoryCheck,
-  type: rules.mandatoryCheck,
+  type: rules.test,
   name: rules.mandatoryCheck,
-  description: String
-}
+  description: rules.stringCheck
+};
 
 module.exports = WasteCategory;

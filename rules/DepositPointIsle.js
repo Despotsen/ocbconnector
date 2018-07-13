@@ -1,17 +1,17 @@
 const rules  = require('../utilities');
 
 const DepositPointIsle = {
-  id: rules.mandatoryCheck,
-  type: rules.mandatoryCheck,
+  id: rules.id,
+  type: rules.test,
   location: rules.locationCheckNoMand,
-  address: String,
-  name: String,
-  description: String,
+  address: rules.stringCheck,
+  name: rules.stringCheck,
+  description: rules.stringCheck,
   features: rules.mandatoryCheck,
   refDepositPoint: rules.stringToArrayMandatory,
-  areaServed: String,
-  dateModified: String,
-  dateCreated: String
+  areaServed: rules.stringCheck,
+  dateModified: rules.stringCheck,
+  dateCreated: rules.stringCheck
 }
 
 module.exports = DepositPointIsle;

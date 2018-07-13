@@ -1,7 +1,7 @@
 {
   "rules": [
-    "DepositPoint", 
-    "DepositPointType", 
+    "DepositPoint",
+    "DepositPointType",
     "DepositPointIsle",
     "SortingType",
     "Transaction",
@@ -37,9 +37,12 @@
     "family": "Mandatory:Text, Entity Type. In this case fixed to 'ResourceCollection'",
     "type": "Mandatory:Text, Resource collection subtype. In this case fxed to 'SortingType'",
     "name": "Mandatory:Text, SortingType Name. Example 'Color Glass collection'",
+    "nameLocal": "Optional:Text, SortingType name in the local language.",
     "description": "Optonal:Text, SortingType description. Example 'Collection of colored glass bottles'",
+    "descriptionLocal": "Optional:Text, SortingType description in the local language.",
     "regulation": "Optonal:Text, Regulation under which the SortingType is operating.",
     "refResources": "Mandatory:List<ID>, List of waste entities composing the SortingType. Example [waste:6, waste18]",
+    "shape": "Optional:Text, If the shape of the container is very relevant or representative for the sorting type (mainly for the sorting game) specify the shape of the container. Accepted values: the shapes provided by the sorting game.",
     "color": "Mandatory:Text, Sorting type's associated color. Example 'Green'",
     "annotations": "Optonal:Text, Attribute reserved for annotations (incidences, remarks, etc.)",
     "areaServed": "Optonal:Text, Higher level area to which the sorting type belongs to. It can be used to define the area where the sorting type is applied, etc.",

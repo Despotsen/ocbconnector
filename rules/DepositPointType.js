@@ -1,12 +1,12 @@
 const rules  = require('../utilities');
 
 const DepoistPointType = {
-  id: rules.mandatoryCheck,
-  type: rules.mandatoryCheck,
+  id: rules.id,
+  type: rules.test,
   family: rules.mandatoryCheck,
   name: rules.mandatoryCheck,
-  refInputs: String,
-  refOutputs: String,
+  refInputs: rules.stringCheck,
+  refOutputs: rules.stringCheck,
   width: rules.commaNumToUnitsMandatory,
   height: rules.commaNumToUnitsMandatory,
   depth: rules.commaNumToUnitsMandatory,
@@ -18,20 +18,20 @@ const DepoistPointType = {
   insertHolesNumber: rules.commaNumToUnitsMandatory,
   insertHoleWidth: rules.commaNumToUnits,
   insertHoleHeight: rules.commaNumToUnits,
-  loadType: String,
-  madeOf: String,
-  madeOfCode: String,
-  brandName: String,
-  modelName: String,
-  manufacturerName: String,
+  loadType: rules.stringCheck,
+  madeOf: rules.stringCheck,
+  madeOfCode: rules.stringCheck,
+  brandName: rules.stringCheck,
+  modelName: rules.stringCheck,
+  manufacturerName: rules.stringCheck,
   colors: rules.stringToArray,
-  image: String,
+  image: rules.stringCheck,
   compliantWith:  rules.stringToArray,
-  accessLimitation: String,
-  userIdentification: String,
-  inputControl: String,
+  accessLimitation: rules.stringCheck,
+  userIdentification: rules.stringCheck,
+  inputControl: rules.stringCheck,
   maximumInputVolume: rules.commaNumToUnits,
   features: rules.stringToArrayMandatory
-}
+};
 
 module.exports = DepoistPointType;

@@ -23,7 +23,6 @@ function getEntities(req, res, id, headers) {
       res.status(200).json(result);
     })
     .catch((error) => {
-      console.log(error)
       entitiesOperation
         .errorHandle(res, error.statusCode || 500);
     });
@@ -62,7 +61,6 @@ function postEntities(req, res, file, headers) {
 
   return parser.parse(file.buffer.toString()).then((data) => {
     entities.sendEntities(data.result, headers).then((result) => {
-      console.log(data.errors)
         res.json([
           {
             "Entity attribute errors:": data.errors.length,
@@ -100,9 +98,6 @@ function updateEntities(req, res, file, headers) {
 
       entities.updateEntities(data.result, headers)
         .then((result) => {
-          if(data.result.length === 0) {
-            console.log('nema')
-          }
           res.json([
             {
               "Entity attribute errors:": data.errors.length,

@@ -1,19 +1,49 @@
 const entityRules = require('../rules');
+const metawrite = require('./metadata').set;
 
 function propertyChecks(rules, entity, operation) {
   const rulesProp = Object.getOwnPropertyNames(rules);
   const entityProp = Object.getOwnPropertyNames(entity);
 
+  const entityPropClean = function(value) {
+    let counter = 0;
+    let clear = value;
+    let result = [];
+    let metadata = [];
+
+    clear.forEach(element => {
+      if(!element.includes("%")){
+        counter += 1;
+        result.push(element);
+      } else {
+        counter += 1;
+        let attr = element.substring(0, element.indexOf("%"));
+          result.push(attr);
+        let data = element.substring(element.indexOf("%") + 2, element.length-2);
+        let obj = {};
+        obj['name'] = data.substring(data.indexOf("{"));
+        obj['value'] = entity[element];
+        obj['test'] = counter;
+        metadata.push(obj);
+      }
+    });
+    metawrite(metadata);
+    counter = 0;
+    return result;
+  };
+
+  const test = entityPropClean(entityProp);
+
   const rulesPropLowCase = rulesProp
     .map((rule) => rule.toLocaleLowerCase());
-  const entityPropLowCase = entityProp
+  const entityPropLowCase = test
     .map((element) => element.toLocaleLowerCase());
 
   const invalidProp = [];
   const rulesetLowCase = {};
 
   if (!operation || operation === 'CREATE') {
-    if (Object.keys(rulesProp).length !== Object.keys(entityProp).length) {
+    if (Object.keys(rulesProp).length !== Object.keys(test).length) {
       throw new Error('Rules headers and entity headers are not same.');
     }
   }
@@ -113,12 +143,17 @@ function convertProperties(array, entity) {
 function findProperty(target, property) {
   let targetProperties = Object.getOwnPropertyNames(target);
   let viableProperties = targetProperties.filter((targetProperty) => {
+      if (targetProperty.includes("%")) {
+        let cleanTargetProperty = targetProperty.substring(0, targetProperty.indexOf("%"));
+
+        return (property.toLowerCase() === cleanTargetProperty.toLowerCase());
+      }
       return (property.toLowerCase() === targetProperty.toLowerCase());
   });
   return viableProperties[0];
 }
 
 module.exports = {
-  rulesCheck,
-  processEntity,
+    rulesCheck,
+    processEntity,
 };

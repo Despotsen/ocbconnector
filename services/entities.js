@@ -43,7 +43,7 @@ const entitiesOperations = {
       'Fiware-ServicePath': headers['fiware-servicepath'],
       'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}v2/op/update?options=keyValues`,
+    uri: `${url}v2/op/update`,
     body: {
       actionType: 'APPEND',
       entities: data
@@ -84,7 +84,7 @@ async function sendEntities(data, headers, operation) {
   var allBatches = []
   while (data.length > slicer) {
     let anchor = slicer;
-    slicer += 1000;
+    slicer += 500;
     allBatches.push(
       entitiesOperations.createEntity(data.slice(anchor,slicer), headers)
     );
@@ -114,7 +114,6 @@ async function updateEntities(data, headers) {
   }
   return Promise.all(allBatches)
     .then((x) => {
-      console.log(x)
       return Promise.resolve(`Entities successfuly updated`)
     })
     .catch((e)=>{
