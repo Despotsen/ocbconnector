@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     }
   });
 
-  if (result.length < 2) {
+  if (result.length < 3) {
     log.error(`Failed to get mandatory headers expexted 3 got ${result.length}`)
     return res.status(428).json('They headers resource (Fiware-Service, Fiware-ServicePath, X-Auth-Token) was not found');
   }
