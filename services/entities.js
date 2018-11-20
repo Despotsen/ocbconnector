@@ -1,55 +1,23 @@
-const request = require('request-promise');
-const url = require('../config').orion_url;
+const request = require( "request-promise" );
+const url = require( "../config" ).orion_url;
+
 const entitiesOperations = {
 
-  getEntities: (headers) => request({
-    method: 'GET',
-    headers: {
-      'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token': headers['x-auth-token']
-    },
-    uri: `${url}v2/entities`,
-    json: true,
-  }),
-
-  getEntity: (id, headers) => request({
-    method: 'GET',
-    headers: {
-      'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token': headers['x-auth-token']
-    },
-    uri: `${url}v2/entities?id=${id}`,
-    json: true,
-  }),
-
-  getEntitiesType: (type, headers) => request({
-    method: 'GET',
-    headers: {
-      'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token': headers['x-auth-token']
-    },
-    uri: `${url}v2/entities?type=${type}`,
-    json: true
-  }),
-
-  createEntity: (data, headers) => request({
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Fiware-Service': headers['fiware-service'],
-      'Fiware-ServicePath': headers['fiware-servicepath'],
-      'X-Auth-Token': headers['x-auth-token']
-    },
-    uri: `${url}v2/op/update`,
-    body: {
-      actionType: 'APPEND',
-      entities: data
-    },
-    json: true
-  }),
+    createEntity: ( data, headers ) => request( {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Fiware-Service": headers[ "fiware-service" ],
+            "Fiware-ServicePath": headers[ "fiware-servicepath" ],
+            "X-Auth-Token": headers[ "x-auth-token" ],
+        },
+        uri: `${ url }v2/op/update`,
+        body: {
+            actionType: "APPEND",
+            entities: data,
+        },
+        json: true,
+    } ),
 
   updateEntity: (data, headers) => request({
     method: 'POST',
@@ -59,7 +27,7 @@ const entitiesOperations = {
       'Fiware-ServicePath': headers['fiware-servicepath'],
       'X-Auth-Token': headers['x-auth-token']
     },
-    uri: `${url}v2/op/update?options=keyValues`,
+    uri: `${url}v2/op/update`,
     body: {
       actionType: 'UPDATE',
       entities: data,
@@ -84,7 +52,7 @@ async function sendEntities(data, headers, operation) {
   var allBatches = []
   while (data.length > slicer) {
     let anchor = slicer;
-    slicer += 500;
+    slicer += 300;
     allBatches.push(
       entitiesOperations.createEntity(data.slice(anchor,slicer), headers)
     );
@@ -105,7 +73,7 @@ async function updateEntities(data, headers) {
   var allBatches = []
   while (data.length > slicer) {
     let anchor = slicer;
-    slicer += 1000;
+    slicer += 300;
     allBatches.push(
       entitiesOperations.updateEntity(data.slice(anchor,slicer), headers)
     );

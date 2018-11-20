@@ -1,4 +1,4 @@
-const rules  = require('../utilities');
+const rules = require("../utilities");
 
 const DepositPoint = {
   id: rules.id,
@@ -32,7 +32,7 @@ const DepositPoint = {
   annotations: rules.stringCheck,
   areaServed: rules.stringCheck,
   dateModified: rules.stringCheck,
-  refDevice: rules.stringCheck
+  refDevice: rules.stringCheck,
 };
 
 module.exports = DepositPoint;

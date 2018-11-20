@@ -1,5 +1,7 @@
-const upload = require('./upload');
+const upload = require("./upload");
+const headermid = require("./headermid");
 
 module.exports = {
-  upload
-}
+  upload,
+  headermid,
+};

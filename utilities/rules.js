@@ -1,15 +1,15 @@
-const response = require('../utilities/response');
+const response = require( "../utilities/response" );
 const data = require('../services/metadata').get;
-const pos = require('../services/metadata').getIgor;
-const moment = require('moment');
+const pos = require( "../services/metadata" ).getIgor;
+const moment = require( "moment" );
+
 let counter = 0;
 
-
-function commaNumToUnits(oldNum) {
+function commaNumToUnits( oldNum ) {
     counter += 1;
-  const newNum = oldNum ? Number(oldNum.replace('.', '').replace(',', '.')) : 0;
+    const newNum = oldNum ? Number(oldNum.replace('.', '').replace(',', '.')) : 0;
     let obj = [];
-    if(pos(counter)) {
+    if ( pos( counter ) ) {
         obj = [];
         meta = pos(counter);
         let send =  {
@@ -75,7 +75,7 @@ function stringToArray(string) {
           obj = [];
           meta = pos(counter);
           let send =  {
-              value: string.split([',', ';']).map(raw => raw.trim()),
+              value: string.split(',').map(raw => raw.trim()),
               type: "List",
               metadata: JSON.parse(meta)
           };
@@ -88,7 +88,7 @@ function stringToArray(string) {
       }
 
         return {
-            value: string.split([',', ';']).map(raw => raw.trim()),
+            value: string.split(',').map(raw => raw.trim()),
             type: "List",
             metadata: {}
         }
@@ -101,13 +101,22 @@ function stringToArrayMandatory(string) {
   if (!string) {
     return null;
   }
+
+  if (typeof string === 'object') {
+    return {
+        value: string,
+        type: "List",
+        metadata: {}
+    }
+  }
+
   if (string) {
     let obj = [];
     if(pos(counter)) {
         obj = [];
         meta = pos(counter);
         let send =  {
-            value: string.split([',', ';']).map(raw => raw.trim()),
+            value: string.split(',').map(raw => raw.trim()),
             type: "List",
             metadata: JSON.parse(meta)
         };
@@ -118,7 +127,7 @@ function stringToArrayMandatory(string) {
         return obj[0];
     }
       return {
-          value: string.split([',', ';']).map(raw => raw.trim()),
+          value: string.split(',').map(raw => raw.trim()),
           type: "List",
           metadata: {}
       }
@@ -136,42 +145,40 @@ function dateCheck(date) {
   return date;
 }
 
-function mandatoryCheck(attribute) {
-
+function mandatoryCheck( attribute ) {
     counter += 1;
 
-  if(!attribute) {
-    return null
-  }
-  const test = attribute.split('');
-  const forbide = ["<", ">", "'", ";", "(", ")"]
-  test.forEach(element => {
-    if(forbide.includes(element)) {
-      throw "Forbiden char";
+    if ( !attribute ) {
+        return null;
     }
-  });
+    const test = attribute.split( "" );
+    const forbide = [ "<", ">", "'", ";", "(", ")" ];
+    test.forEach( ( element ) => {
+        if ( forbide.includes( element ) ) {
+            throw "Forbiden char";
+        }
+    } );
     let obj = [];
-    if(pos(counter)) {
+    if ( pos( counter ) ) {
         obj = [];
-        meta = pos(counter);
-                    let send =  {
-                        value: attribute,
-                        type: "String",
-                        metadata: JSON.parse(meta)
-                    };
-                    obj.push(send);
-
+        const meta = pos( counter );
+        const send = {
+            value: attribute,
+            type: "String",
+            metadata: JSON.parse( meta ),
+        };
+        obj.push( send );
     }
 
-    if(obj.length !== 0) {
-        return obj[0];
+    if ( obj.length !== 0 ) {
+        return obj[ 0 ];
     }
 
-  return {
-      "value": attribute,
-      "type": "String",
-      "metadata": {}
-  };
+    return {
+        value: attribute,
+        type: "String",
+        metadata: {},
+    };
 }
 
 function idTypeCheck(value) {
@@ -188,6 +195,49 @@ function idTypeCheck(value) {
         "type": "String",
         "metadata": {}
     }
+}
+
+function stringToArrayNum(string) {
+    counter += 1;
+  if (!string) {
+    return {
+        value: [],
+        type: "List",
+        metadata: {}
+    }
+  }
+
+  if (typeof string === 'object') {
+    return {
+        value: string,
+        type: "List",
+        metadata: {}
+    }
+  }
+
+  if (string) {
+    let obj = [];
+    if(pos(counter)) {
+        obj = [];
+        meta = pos(counter);
+        let send =  {
+            value: arrToNum(string),
+            type: "List",
+            metadata: JSON.parse(meta)
+        };
+        obj.push(send);
+    }
+
+    if(obj.length !== 0) {
+        return obj[0];
+    }
+      return {
+          value: arrToNum(string),
+          type: "List",
+          metadata: {}
+      }
+  }
+  return null;
 }
 
 function idspec(attr) {
@@ -260,9 +310,16 @@ function locationCheckNoMand(location) {
     };
   }
 
+  if (typeof location === 'object') {
+      return {
+          value: location,
+          type: "geo:json"
+      }
+  }
+
   const data = location.substring(location.indexOf('[') + 1, location.indexOf(']'));
   const coordinates = data.split(',', 2);
-
+  
   const x = Number(coordinates[0]);
   const y = Number(coordinates[1]);
 
@@ -330,6 +387,18 @@ function removeForbidenStrict(string) {
   return data1;
 }
 
+function arrToNum(string) {
+    let data = string.split(',').map(raw => raw.trim());
+
+    const result = data.reduce((finalList, string) => {
+        let num = string ? Number(string.replace('.', '').replace(',', '.')) : 0;
+      finalList.push(num);
+      return finalList; 
+    },[]);
+
+    return result;
+}
+
 module.exports = {
     locationCheck,
     commaNumToUnits,
@@ -345,5 +414,6 @@ module.exports = {
     locationCheckNoMand,
     idTypeCheck,
     testCheck,
-    idspec
+    idspec,
+    stringToArrayNum
 };

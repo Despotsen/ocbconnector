@@ -1,4 +1,4 @@
-const entities = require('./entities');
+const entities = require("./entities");
 
 module.exports = {
   entities,

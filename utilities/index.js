@@ -13,6 +13,7 @@ const locationCheckNoMand = require('./rules').locationCheckNoMand;
 const stringCheck = require('./rules').idTypeCheck;
 const test = require('./rules').testCheck;
 const id = require('./rules').idspec;
+const stringToArrayNum = require('./rules').stringToArrayNum;
 
 module.exports = {
   mandatoryCheck,
@@ -28,7 +29,8 @@ module.exports = {
   removeForbiden,
   removeForbidenStrict,
   locationCheckNoMand,
-    stringCheck,
-    test,
-    id
+  stringCheck,
+  test,
+  id,
+  stringToArrayNum
 };

@@ -9,6 +9,8 @@ module.exports.set = function (value) {
         let num = element.test;
         igor[num] = element.name;
     });
+
+
 };
 
 module.exports.get = function() {

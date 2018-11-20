@@ -1,4 +1,4 @@
-const rules  = require('../utilities');
+const rules = require("../utilities");
 
 const DepositPointIsle = {
   id: rules.id,
@@ -11,7 +11,6 @@ const DepositPointIsle = {
   refDepositPoint: rules.stringToArrayMandatory,
   areaServed: rules.stringCheck,
   dateModified: rules.stringCheck,
-  dateCreated: rules.stringCheck
-}
-
+  dateCreated: rules.stringCheck,
+};
 module.exports = DepositPointIsle;

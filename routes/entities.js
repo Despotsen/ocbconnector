@@ -1,52 +1,38 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
-const { entities } = require('../controllers/');
-const { upload } = require('../middlewares');
-const rules = require('../utilities/rules.json');
-
+const { entities } = require("../controllers/");
+const { upload, headermid } = require("../middlewares");
+const rootController = require("../controllers/root");
 
 module.exports = () => {
-  router.route('/v1/entities')
-    .get((req, res) => {
-      entities.getEntities(req, res, req.params.id, req.headers);
-    })
-    .post(
-      upload.multer,
-      (req, res) => {
-        entities.postEntities(req, res, req.files[0], req.headers);
-      }
-    );
-
-  router.route('/v1/entities/:id')
-    .get((req, res) => {
-      entities.getEntities(req, res, req.params.id, req.headers);
-    });
-
-  router.route('/v1/rules')
-    .get((req, res) => {
-      res.json(rules['rules']);
-    });
-
-  router.route('/v1/rules/:id')
-  .get((req, res) => {
-    if(!rules[req.params.id]) {
-      res.status(404).json(`Rules details not found/exist for ${req.params.id}`);
-    }
-    res.status(200).json(rules[req.params.id]);
+  router.post("/v1/entities/", headermid, upload.multer, (req, res) => {
+    entities.postEntities(req, res, req.files[ 0 ], req.headers);
   });
 
-  router.route('/v1/entities/type/:id')
-    .get((req, res) => {
-      entities.getEntitiesType(res, req.params.id, req.headers);
-    });
+  router.post("/v1/entities/update", headermid, upload.multer, (req, res) => {
+    entities.updateEntities(req, res, req.files[ 0 ], req.headers);
+  });
 
-  router.route('/v1/entities/update')
-  .post(
-    upload.multer,
-    (req, res) => {
-      entities.updateEntities(req, res, req.files[0], req.headers);
-    });
+  router.get("/v1/entities", headermid, (req, res) => {
+    rootController.getEntities(req, res);
+  });
+
+  router.get("/v1/entities/:id", headermid, (req, res) => {
+    rootController.getEntity(req, res);
+  });
+
+  router.get("/v1/entities/type/:id", headermid, (req, res) => {
+    rootController.getEntityByType(req, res);
+  });
+
+  router.get("/v1/rules", (req, res) => {
+    rootController.getRules(req, res);
+  });
+
+  router.get("/v1/rules/:id", (req, res) => {
+    rootController.getRule(req, res);
+  });
 
   return router;
 };
