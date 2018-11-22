@@ -46,13 +46,14 @@ function postEntities(req, res, file, headers) {
 }
 
 function updateEntities(req, res, file, headers) {
+  const ext = path.extname(file.originalname);
   fileCheck(file, (err) => {
     if (err) {
       entitiesOperation.errorHandle(res, err);
     }
   });
 
-  return parser.parse(file.buffer.toString(), "update")
+  return parser.parse(file.buffer.toString(), "update", ext)
     .then((data) => {
       entities.updateEntities(data.result, headers)
         .then(() => {

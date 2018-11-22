@@ -7,6 +7,15 @@ let counter = 0;
 
 function commaNumToUnits( oldNum ) {
     counter += 1;
+
+    if(typeof oldNum === 'object') {
+        return {
+            "value": oldNum.value,
+            "type": "Integer",
+            "metadata": oldNum.metadata
+        }
+    }
+
     const newNum = oldNum ? Number(oldNum.replace('.', '').replace(',', '.')) : 0;
     let obj = [];
     if ( pos( counter ) ) {
@@ -36,6 +45,15 @@ function commaNumToUnitsMandatory(oldNum) {
     if(!oldNum) {
         return null;
     }
+
+    if(typeof oldNum === 'object') {
+        return {
+            "value": oldNum.value,
+            "type": "Integer",
+            "metadata": oldNum.metadata
+        }
+    }
+
     const newNum = oldNum ? Number(oldNum.replace('.', '').replace(',', '.')) : 0;
     let obj = [];
     if(pos(counter)) {
@@ -183,6 +201,15 @@ function mandatoryCheck( attribute ) {
 
 function idTypeCheck(value) {
     counter += 1;
+
+    if(typeof value === 'object') {
+        return {
+            "value": value.value,
+            "type": "String",
+            "metadata": value.metadata
+        }
+    }
+
     if(pos(counter)) {
         return  {
             value: value,
@@ -256,6 +283,13 @@ function locationCheck(location) {
   if (!location) {
     return null;
   }
+
+  if (typeof location === 'object') {
+    return {
+        value: location,
+        type: "geo:json"
+    }
+}
 
   const data = location.substring(location.indexOf('[') + 1, location.indexOf(']'));
   const coordinates = data.split(',', 2);
