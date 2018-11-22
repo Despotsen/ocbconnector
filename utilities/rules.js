@@ -165,7 +165,7 @@ function dateCheck(date) {
 
 function mandatoryCheck( attribute ) {
     counter += 1;
-
+    console.log(attribute)
     if ( !attribute ) {
         return null;
     }

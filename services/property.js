@@ -1,7 +1,8 @@
 const entityRules = require("../rules");
 const metawrite = require("./metadata").set;
 
-function propertyChecks( rules, entity, operation ) {
+function propertyChecks( rules, entity, operation, ext ) {
+
     const rulesProp = Object.getOwnPropertyNames( rules );
     const entityProp = Object.getOwnPropertyNames( entity );
     
@@ -71,19 +72,34 @@ function propertyChecks( rules, entity, operation ) {
     }
 }
 
-function rulesCheck( parsedData ) {
-    const { type } = parsedData[ 0 ];
+function rulesCheck( parsedData, ext ) {
+
+    if (ext === '.json') {
+        var { type } = parsedData[0][0]
+    } else {
+        var { type } = parsedData[ 0 ];
+    }
+
     const rules = entityRules[ type ];
     const errors = [];
 
+   
     if ( !type ) {
-        return new Error( `Failed to find type on ${ parsedData[ 0 ].id }` );
+        return new Error( `Failed to find type on ${ parsedData[ 0 ].id  }` );
     }
     parsedData.forEach( ( element ) => {
-        if ( !element.type || element.type !== type ) {
-            errors.push( element.id );
+        if (ext === '.json') {
+            element.forEach((single) => {
+                if ( !single.type || single.type !== type ) {
+                    errors.push( single.id );
+                }
+            })
+        } else {
+            if ( !element.type || element.type !== type ) {
+                errors.push( element.id );
+            }
         }
-    } );
+    });
 
     if ( errors.length !== 0 ) {
         throw new Error( `Invalid type attribute on: ${ errors }` );
@@ -96,8 +112,8 @@ function rulesCheck( parsedData ) {
     return rules;
 }
 
-function processEntity( rules, entity, option ) {
-    propertyChecks( rules, entity, option );
+function processEntity( rules, entity, option, ext ) {
+    propertyChecks( rules, entity, option, ext );
     const rulesProperties = Object.keys( rules );
     const result = {};
 
