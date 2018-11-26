@@ -8,7 +8,10 @@
     "Vehicle",
     "VehicleType",
     "Waste",
-    "WasteCategory"
+    "WasteCategory",
+    "Route",
+    "TargetGroup",
+    "WasteManagmentStage"
   ],
 
   "Waste": {
@@ -186,7 +189,8 @@
     "userIdentification":"Optonal:Text, User identification type to the deposit point type(`nfc`,`rfid`,`qr code`)",
     "inputControl":"Optonal:Text, Input control type of the container type. (`chamber`,`weight`,`volume`)",
     "maximumInputVolume":"Optonal:Number, Maximum volume a user can deposit.",
-    "features":"Mandatory:List, List of container features.(`wheels`,`handAperture`,`feetAperture`,`lid`,`roundedLid`,`insertHoles`,`lockable`,`accessible holes`)"
+    "features":"Mandatory:List, List of container features.(`wheels`,`handAperture`,`feetAperture`,`lid`,`roundedLid`,`insertHoles`,`lockable`,`accessible holes`)",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
   },
 
   "DepositPointIsle": {
@@ -200,6 +204,47 @@
     "refDepositPoint":"Mandatory:List, Reference to DepositPoint entities",
     "areaServed":"Optonal:Text, Higher level area to which the isle belongs to. It can be used to group isles per responsible, district, neighbourhood, etc.",
     "dateModified":"Optonal:Text, Last update timestamp of this entity.",
-    "dateCreated":"Optonal:Text, Creation timestamp of the isle (This might different than the entity creation time)"
+    "dateCreated":"Optonal:Text, Creation timestamp of the isle (This might different than the entity creation time)",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
+  },
+
+  "Route": {
+    "id":"Mandatory:Text, Unique identifier. Example route:1",
+    "type":"Mandatory:Text, Entity Type. Fixed to Route",
+    "shortName":"Mandatory:Text, Short name of a route, often short and abstract indetifier like 7,34 or Blue that riders use to indetify a route",
+    "longName":"Optional:Text, Full name of a route, more descrptive than the short name an often include the route's destination or stop",
+    "description":"Optional:Text, Route description",
+    "refAssignedVehicle": "Optional:Text, ID of the assigned vehicle",
+    "vehicleType": "Mandatory:Text, type of vehcile",
+    "departurePoint": "Optonal:Text, Departure location represented by a GeoJSON Point",
+    "refDeparture":"Optonal:Text, Segment's departure entity id",
+    "scheduledDeparture":"Optional:Text, Itineray's scheduled path geometry represented by a GeoJSON LineString",
+    "departureTimestamp":"Optional:Text, Timestamp which captures when the user started the trip segment",
+    "arrivalPoint":"Optional:Text, Arrival location represented by a GeoJSON Point",
+    "refArrival":"Optional:Text, Segment's arrival entity's id",
+    "scheduledArrival":"Optional:Text, Performed path of the vehicle, to be updated while vehicle is traveling. A geometry represented by a GeoJSON Linestring",
+    "arrivalTimestamp":"Optional:Text, Timestamp which captures when the user arrival the trip segment",
+    "stops":"Mandatory:JSON, Json array with the structured fields of the stops.",
+    "refAgency":"Optional:Text, agent this route operated by",
+    "color":"Optional:Text, Color that corresponds to the route. The color must be provided as a six-character hexadecimal number, for example, 00FFFF.",
+    "url":"Optional:Text, The URL of a web page about that particual route",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
+  },
+
+  "TargetGroup": {
+    "id":"Mandatory:Text, Unique identifier. Example targetgroup:3",
+    "type":"Mandatory:Text, Entity Type. Fixed to TargetGroup",
+    "name":"Text:Mandatory, TargetGroup Name. Example Domestic Generator",
+    "acronym":"Text:Mandatory, TargetGroup Acronym Example Domestic Generator",
+    "description":"Text:Optional, Target Group description",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"]
+  },
+
+  "WasteManagmentStage": {
+    "id":"Mandatory:Text, Unique identifier. Example wastemanagmentstage:3",
+    "type":"Mandatory:Text, Entity Type. Fixed to WasteManagmentStage",
+    "name":"Text:Mandatory, Name of the Waste Management Stage. Example Prevention",
+    "Forbiden charachters:": ["<", ">", "'", ";", "(", ")"] 
   }
+
 }
