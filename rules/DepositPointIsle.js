@@ -1,8 +1,8 @@
 const rules = require("../utilities");
 
 const DepositPointIsle = {
-  id: rules.id,
-  type: rules.test,
+  id: rules.idCheck,
+  type: rules.typeCheck,
   location: rules.locationCheckNoMand,
   address: rules.stringCheck,
   name: rules.stringCheck,

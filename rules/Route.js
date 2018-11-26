@@ -1,8 +1,8 @@
 const rules = require("../utilities");
 
 const Route = {
-  id: rules.id,
-  type: rules.test,
+  id: rules.idCheck,
+  type: rules.typeCheck,
   shortName: rules.mandatoryCheck,
   longName: rules.stringCheck,
   refAssignedVehicle: rules.stringCheck,

@@ -1,8 +1,8 @@
 const rules = require( "../utilities" );
 
 const TargetGroup = {
-  id: rules.id,
-  type: rules.test,
+  id: rules.idCheck,
+  type: rules.typeCheck,
   name: rules.mandatoryCheck,
   acronym: rules.mandatoryCheck,
   description: rules.stringCheck

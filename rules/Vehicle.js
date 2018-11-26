@@ -1,8 +1,8 @@
 const rules = require( "../utilities" );
 
 const Vehicle = {
-    id: rules.id,
-    type: rules.test,
+    id: rules.idCheck,
+    type: rules.typeCheck,
     family: rules.mandatoryCheck,
     vehiclePlateIdentifier: rules.mandatoryCheck,
     name: rules.stringCheck,

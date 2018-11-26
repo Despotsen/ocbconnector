@@ -1,8 +1,8 @@
 const rules = require( "../utilities" );
 
 const WasteManagementStage = {
-  id: rules.id,
-  type: rules.test,
+  id: rules.idCheck,
+  type: rules.typeCheck,
   name: rules.mandatoryCheck
 };
 

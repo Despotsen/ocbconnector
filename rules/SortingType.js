@@ -1,9 +1,9 @@
 const rules = require( "../utilities" );
 
 const SortingType = {
-    id: rules.id,
+    id: rules.idCheck,
     family: rules.mandatoryCheck,
-    type: rules.test,
+    type: rules.typeCheck,
     name: rules.mandatoryCheck,
     nameLocal: rules.stringCheck,
     description: rules.stringCheck,

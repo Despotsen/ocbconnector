@@ -1,8 +1,8 @@
 const rules = require( "../utilities" );
 
 const Transaction = {
-    id: rules.id,
-    type: rules.test,
+    id: rules.idCheck,
+    type: rules.typeCheck,
     refEmitter: rules.mandatoryCheck,
     refReceiver: rules.mandatoryCheck,
     refCapturer: rules.stringCheck,

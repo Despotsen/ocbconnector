@@ -1,8 +1,8 @@
 const rules = require("../utilities");
 
 const DepositPoint = {
-  id: rules.id,
-  type: rules.test,
+  id: rules.idCheck,
+  type: rules.typeCheck,
   family: rules.mandatoryCheck,
   serialNumber: rules.stringCheck,
   refSortingType: rules.mandatoryCheck,

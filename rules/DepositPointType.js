@@ -1,8 +1,8 @@
 const rules = require( "../utilities" );
 
 const DepoistPointType = {
-    id: rules.id,
-    type: rules.test,
+    id: rules.idCheck,
+    type: rules.typeCheck,
     family: rules.mandatoryCheck,
     name: rules.mandatoryCheck,
     refInputs: rules.stringCheck,
