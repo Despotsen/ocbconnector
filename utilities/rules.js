@@ -199,7 +199,7 @@ function mandatoryCheck( attribute ) {
     };
 }
 
-function idTypeCheck(value) {
+function stringCheck(value) {
     counter += 1;
 
     if(typeof value === 'object') {
@@ -267,13 +267,13 @@ function stringToArrayNum(string) {
   return null;
 }
 
-function idspec(attr) {
+function idCheck(attr) {
     counter = 0;
     counter += 1;
     return attr;
 }
 
-function testCheck(attr) {
+function typeCheck(attr) {
     counter += 1;
     return attr;
 }
@@ -446,8 +446,8 @@ module.exports = {
     removeForbiden,
     removeForbidenStrict,
     locationCheckNoMand,
-    idTypeCheck,
-    testCheck,
-    idspec,
+    stringCheck,
+    typeCheck,
+    idCheck,
     stringToArrayNum
 };

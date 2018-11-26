@@ -11,8 +11,8 @@ module.exports =  {
   removeForbiden,
   removeForbidenStrict,
   locationCheckNoMand,
-  idTypeCheck,
-  testCheck,
-  idspec,
+  stringCheck,
+  typeCheck,
+  idCheck,
   stringToArrayNum
 } = require("./rules");
