@@ -14,5 +14,6 @@ module.exports =  {
   stringCheck,
   typeCheck,
   idCheck,
-  stringToArrayNum
+  stringToArrayNum,
+  structuredValue
 } = require("./rules");

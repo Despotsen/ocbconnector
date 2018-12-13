@@ -6,53 +6,49 @@ function propertyChecks( rules, entity, operation, ext ) {
     const rulesProp = Object.getOwnPropertyNames( rules );
     const entityProp = Object.getOwnPropertyNames( entity );
     
-    console.log( "******" );
-    console.log( rulesProp.length );
-    console.log( "******" );
+    const entPropSecond = (rules,entity) => {
+        let rulesPr = rules
+            .map( rule => rule.toLocaleLowerCase() );
+        let entprop = entity
+            .map( element => element.toLocaleLowerCase() );
 
-    console.log( "******" );
-    console.log( entityProp.length );
-    console.log( "******" );
+        let metadata = [];
 
-    const entityPropClean = ( value ) => {
-        let counter = 0;
-        const clear = value;
-        const result = [];
-        const metadata = [];
-
-        clear.forEach( ( element ) => {
-            if ( !element.includes( "%" ) ) {
-                counter += 1;
-                result.push( element );
-            } else {
-                counter += 1;
-                const attr = element.substring( 0, element.indexOf( "%" ) );
-                result.push( attr );
-                const data = element.substring( element.indexOf( "%" ) + 2, element.length - 2 );
-                const obj = {};
-                obj.name = data.substring( data.indexOf( "{" ) );
-                obj.value = entity[ element ];
-                obj.test = counter;
-                metadata.push( obj );
+        for (let index = 0; index < rulesPr.length; index++) {
+            const element = rulesPr[index];
+            if(!entprop.includes(element)) {
+                for (let single of entprop)
+                    if (single.substring(0, single.indexOf("%")) === element) {
+                        let obj = {};
+                        const data = single.substring( single.indexOf( "%" ) + 2, single.length - 2 );
+                        obj.name = data.substring( data.indexOf( "{" ) );
+                        obj.value = 0;
+                        obj.test = index + 1;
+                        metadata.push(obj);
+                    }
             }
-        } );
+        }
         metawrite( metadata );
-        counter = 0;
-        return result;
-    };
+        let prop = entprop.map((one) => {
+            if (one.includes("%"))
+                return one.substring(0, one.indexOf("%"));
+            return one;
+        })
+        return prop;
+    }
 
-    const test = entityPropClean( entityProp );
+    const patka = entPropSecond(rulesProp, entityProp);
 
     const rulesPropLowCase = rulesProp
         .map( rule => rule.toLocaleLowerCase() );
-    const entityPropLowCase = test
+    const entityPropLowCase = patka
         .map( element => element.toLocaleLowerCase() );
 
     const invalidProp = [];
     const rulesetLowCase = {};
 
     if ( !operation || operation === "CREATE" ) {
-        if ( Object.keys( rulesProp ).length !== Object.keys( test ).length ) {
+        if ( Object.keys( rulesProp ).length !== Object.keys( patka ).length ) {
             throw new Error( "Rules headers and entity headers are not same." );
         }
     }

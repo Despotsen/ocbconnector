@@ -13,7 +13,8 @@ const SortingType = {
     shape: rules.stringCheck,
     color: rules.mandatoryCheck,
     annotations: rules.stringCheck,
-    wasteCharacterization: rules.stringCheck,
+    wasteCharacterization: rules.structuredValue,
+    wasteCharacterizationTime: rules.stringCheck,
     areaServed: rules.stringCheck,
 };
 

@@ -433,6 +433,16 @@ function arrToNum(string) {
     return result;
 }
 
+function structuredValue(string) {
+    counter +=1
+    return {
+        "value": string || "",
+        "type": "JSON",
+        "metadata": {}
+    }
+}
+
+
 module.exports = {
     locationCheck,
     commaNumToUnits,
@@ -449,5 +459,6 @@ module.exports = {
     stringCheck,
     typeCheck,
     idCheck,
-    stringToArrayNum
+    stringToArrayNum,
+    structuredValue
 };
