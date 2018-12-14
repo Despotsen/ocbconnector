@@ -442,6 +442,17 @@ function structuredValue(string) {
     }
 }
 
+function structuredValueMandatory(string) {
+    counter +=1
+    if (!string)
+        return null;
+    return {
+        "value": string || "",
+        "type": "JSON",
+        "metadata": {}
+    }
+}
+
 
 module.exports = {
     locationCheck,
@@ -460,5 +471,6 @@ module.exports = {
     typeCheck,
     idCheck,
     stringToArrayNum,
-    structuredValue
+    structuredValue,
+    structuredValueMandatory
 };

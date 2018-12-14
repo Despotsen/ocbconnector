@@ -3,14 +3,22 @@ const rules = require("../utilities");
 const Route = {
   id: rules.idCheck,
   type: rules.typeCheck,
-  shortName: rules.mandatoryCheck,
+  shortName: rules.stringCheck,
   longName: rules.stringCheck,
-  refAssignedVehicle: rules.stringCheck,
-  vehicleType: rules.mandatoryCheck,
-  departurePoint: rules.locationCheckNoMand,
+  description: rules.stringCheck,
+  refScheduledVehicle: rules.stringCheck,
+  refAssignedVehicle: rules.mandatoryCheck,
+  vehicleType: rules.stringCheck,
+  departurePoint: rules.structuredValue,
+  scheduledDepartureTimestamp: rules.stringCheck,
+  realDepartureTimestamp: rules.stringCheck,
   arrivalPoint: rules.locationCheckNoMand,
-  stops: rules.stringToArrayMandatory,
-  refAgency: rules.stringCheck,
+  scheduledArrivalTimestamp: rules.stringCheck,
+  realArrivalTimestamp: rules.stringCheck,
+  scheduledStops: rules.structuredValue,
+  realStops: rules.structuredValueMandatory,
+  scheduledPath: rules.structuredValue,
+  realPath: rules.structuredValue
 };
 
 module.exports = Route;
