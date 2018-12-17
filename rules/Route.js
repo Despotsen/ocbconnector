@@ -9,7 +9,7 @@ const Route = {
   refScheduledVehicle: rules.stringCheck,
   refAssignedVehicle: rules.mandatoryCheck,
   vehicleType: rules.stringCheck,
-  departurePoint: rules.structuredValue,
+  departurePoint: rules.locationCheckNoMand,
   scheduledDepartureTimestamp: rules.stringCheck,
   realDepartureTimestamp: rules.stringCheck,
   arrivalPoint: rules.locationCheckNoMand,

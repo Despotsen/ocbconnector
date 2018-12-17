@@ -165,10 +165,18 @@ function dateCheck(date) {
 
 function mandatoryCheck( attribute ) {
     counter += 1;
-    console.log(attribute)
     if ( !attribute ) {
         return null;
     }
+
+    if (typeof attribute === 'object') {
+        return {
+            value: attribute.value,
+            type: "String",
+            metadata: attribute.metadata,
+        };
+    }
+
     const test = attribute.split( "" );
     const forbide = [ "<", ">", "'", ";", "(", ")" ];
     test.forEach( ( element ) => {
@@ -336,10 +344,7 @@ function locationCheckNoMand(location) {
     counter += 1;
   if (!location) {
     return {
-        value: {
-            type: "Point",
-            coordinates: ['', ''],
-        },
+        value: {},
         type: "geo:json"
     };
   }
@@ -435,8 +440,15 @@ function arrToNum(string) {
 
 function structuredValue(string) {
     counter +=1
+    if (typeof string == "object") {
+        return {
+            "value": string["value"].value || {},
+            "type": "JSON",
+            "metadata": string["value"].metadata || {}
+        }
+    }
     return {
-        "value": string || "",
+        "value": string || {},
         "type": "JSON",
         "metadata": {}
     }
@@ -446,6 +458,13 @@ function structuredValueMandatory(string) {
     counter +=1
     if (!string)
         return null;
+    if (typeof string == "object") {
+        return {
+            "value": string["value"].value || {},
+            "type": "JSON",
+            "metadata": string["value"].metadata || {}
+        }
+    }
     return {
         "value": string || "",
         "type": "JSON",
