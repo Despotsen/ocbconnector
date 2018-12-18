@@ -294,8 +294,9 @@ function locationCheck(location) {
 
   if (typeof location === 'object') {
     return {
-        value: location,
-        type: "geo:json"
+        value: location["value"].value,
+        type: "geo:json",
+        metadata: location["value"].metadata
     }
 }
 
@@ -341,7 +342,7 @@ function locationCheck(location) {
 }
 
 function locationCheckNoMand(location) {
-    counter += 1;
+    counter += 1; 
   if (!location) {
     return {
         value: {},
@@ -349,12 +350,20 @@ function locationCheckNoMand(location) {
     };
   }
 
-  if (typeof location === 'object') {
-      return {
-          value: location,
-          type: "geo:json"
-      }
-  }
+  if(typeof location === "object") {
+        return {
+            value: location["value"].geometry,
+            type: "geo:json",
+            metadata: location.metadata || {}
+        } 
+    }
+
+//   if (typeof location === 'object') {
+//       return {
+//           value: location,
+//           type: "geo:json"
+//       }
+//   }
 
   const data = location.substring(location.indexOf('[') + 1, location.indexOf(']'));
   const coordinates = data.split(',', 2);
