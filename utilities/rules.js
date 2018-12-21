@@ -451,14 +451,14 @@ function structuredValue(string) {
     counter +=1
     if (typeof string == "object") {
         return {
-            "value": string["value"].value || {},
-            "type": "JSON",
-            "metadata": string["value"].metadata || {}
+            "value": string.value || {},
+            "type": "StructuredValue",
+            "metadata": string.metadata || {}
         }
     }
     return {
         "value": string || {},
-        "type": "JSON",
+        "type": "StructuredValue",
         "metadata": {}
     }
 }
@@ -469,14 +469,14 @@ function structuredValueMandatory(string) {
         return null;
     if (typeof string == "object") {
         return {
-            "value": string["value"].value || {},
-            "type": "JSON",
-            "metadata": string["value"].metadata || {}
+            "value": string.value || {},
+            "type": "StructuredValue",
+            "metadata": string.metadata || {}
         }
     }
     return {
         "value": string || "",
-        "type": "JSON",
+        "type": "StructuredValue",
         "metadata": {}
     }
 }
