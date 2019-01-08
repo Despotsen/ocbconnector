@@ -10,6 +10,7 @@ const VehicleType = require("./VehicleType");
 const Route = require("./Route");
 const TargetGroup = require("./TargetGroup");
 const WasteManagementStage = require("./WasteManagementStage");
+const User = require("./User");
 
 module.exports = {
   Waste,
@@ -23,5 +24,6 @@ module.exports = {
   VehicleType,
   Route,
   TargetGroup,
-  WasteManagementStage
+  WasteManagementStage,
+  User
 };
