@@ -45,6 +45,12 @@ const parseOperations = {
 };
 
 function parse( rawData, option, fileType ) {
+    if ( fileType === "body") {
+        return parseOperations.getRules( rawData )
+            .then( rules => parseOperations.getEntity( rules, rawData, option ) )
+            .then( checkedData => Promise.resolve( checkedData ) )
+            .catch( error => Promise.reject( error ) );
+    }
     if ( fileType === ".json" ) {
         const data = [];
         data.push( JSON.parse( rawData ) );
@@ -53,11 +59,13 @@ function parse( rawData, option, fileType ) {
             .then( checkedData => Promise.resolve( checkedData ) )
             .catch( error => Promise.reject( error ) );
     }
-    return parseOperations.getData( rawData )
+    if (fileType === ".csv") {
+        return parseOperations.getData( rawData )
         .then( parsedData => parseOperations.getRules( parsedData )
             .then( rules => parseOperations.getEntity( rules, parsedData, option )
                 .then( checkedData => Promise.resolve( checkedData ) ) ) )
         .catch( error => Promise.reject( error ) );
+    }
 }
 
 module.exports = {

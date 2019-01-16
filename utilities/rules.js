@@ -457,7 +457,7 @@ function structuredValue(string) {
         }
     }
     return {
-        "value": string || {},
+        "value": specCase(string) || {},
         "type": "StructuredValue",
         "metadata": {}
     }
@@ -475,12 +475,19 @@ function structuredValueMandatory(string) {
         }
     }
     return {
-        "value": string || "",
+        "value": specCase(string) || "",
         "type": "StructuredValue",
         "metadata": {}
     }
 }
 
+function specCase(string) {
+    if (string.includes("[")) {
+        let temp = string.substring(1, string.length-1)
+        return JSON.parse(temp)
+    }
+    return JSON.parse(string);
+}
 
 module.exports = {
     locationCheck,
