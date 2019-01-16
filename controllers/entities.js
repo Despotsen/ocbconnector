@@ -43,7 +43,63 @@ function postEntities(req, res, file, headers) {
     .catch((error) => {
       res.json(error);
     });
+  };
+
+function postEntitiesBody(req, res, file, headers, body) {
+  return parser.parse(file, null, "body")
+  .then((data) => {
+    entities.sendEntities(data.result, headers)
+    .then(() => {
+      res.json([
+        {
+          "Entity attribute errors:": data.errors.length,
+          "Entities without errors:": data.result.length,
+          "Info on rules for given type:": typet(data.result),
+        },
+        data.errors,
+        resp(data.result, "Create"),
+      ]);
+    })
+      .catch((error) => {
+        if (error.statusCode === 401) {
+          res.status(401).json(error.error);
+        }
+         res.json(error);
+      });
+  })
+    .catch((error) => {
+      res.json(error);
+    });
 }
+
+function updateEntitiesBody(req, res, file, headers, body) {
+  return parser.parse(file, "update", "body")
+  .then((data) => {
+    entities.sendEntities(data.result, headers)
+    .then(() => {
+      res.json([
+        {
+          "Entity attribute errors:": data.errors.length,
+          "Entities without errors:": data.result.length,
+          "Info on rules for given type:": typet(data.result),
+        },
+        data.errors,
+        resp(data.result, "Create"),
+      ]);
+    })
+      .catch((error) => {
+        if (error.statusCode === 401) {
+          res.status(401).json(error.error);
+        }
+         res.json(error);
+      });
+  })
+    .catch((error) => {
+      res.json(error);
+    });
+}
+
+
 
 function updateEntities(req, res, file, headers) {
   const ext = path.extname(file.originalname);
@@ -86,4 +142,6 @@ function typet(data) {
 module.exports = {
   postEntities,
   updateEntities,
+  postEntitiesBody,
+  updateEntitiesBody
 };
