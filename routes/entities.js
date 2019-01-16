@@ -7,11 +7,19 @@ const rootController = require("../controllers/root");
 
 module.exports = () => {
   router.post("/v1/entities/", headermid, upload.multer, (req, res) => {
-    entities.postEntities(req, res, req.files[ 0 ], req.headers);
+    if (req.body.length > 0) {
+      entities.postEntitiesBody(req, res, req.body, req.headers, "body")
+    } else {
+      entities.postEntities(req, res, req.files[ 0 ], req.headers);
+    }
   });
 
   router.post("/v1/entities/update", headermid, upload.multer, (req, res) => {
-    entities.updateEntities(req, res, req.files[ 0 ], req.headers);
+    if (req.body.length > 0) {
+      entities.updateEntitiesBody(req, res, req.body, req.headers, "body");
+    } else {
+      entities.updateEntities(req, res, req.files[ 0 ], req.headers);
+    }
   });
 
   router.get("/v1/entities", headermid, (req, res) => {
