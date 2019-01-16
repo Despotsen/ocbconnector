@@ -5,7 +5,7 @@ const User = {
     type: rules.typeCheck,
     family: rules.mandatoryCheck,
     name: rules.stringCheck,
-    location: rules.locationCheck,
+    location: rules.locationCheckNoMand,
     address: rules.stringCheck,
     refType: rules.stringCheck,
     refInputs: rules.stringCheck,
