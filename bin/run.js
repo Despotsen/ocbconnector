@@ -20,7 +20,8 @@ if (config.run_server_protocol === 'http') {
     cert: fs.readFileSync('./certificate.crt')
   }, app);
 }
-  
+
+server.timeout = 20*60*1000;
 server.listen(port);
 server.on('listening', () => {
   log.info(`NGSIConnector is listening on ${server.address().port} in ${app.get('env')} mode.`)
