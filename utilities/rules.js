@@ -486,7 +486,7 @@ function specCase(string) {
         let temp = string.substring(1, string.length-1)
         return JSON.parse(temp)
     }
-    return JSON.parse(string);
+    return JSON.parse(string.substring(1, string.length-1));
 }
 
 module.exports = {
