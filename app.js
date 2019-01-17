@@ -19,6 +19,36 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", entities);
 
+setInterval(function() {
+  request({
+      method: "GET",
+      headers: {
+          "Fiware-Service": "waste4think",
+          "Fiware-ServicePath": "/deusto/w4t/cascais/real",
+          "X-Auth-Token": "DevelopmentTest",
+      },
+      uri: "http://backend.waste4think.eu/connector/entities",
+      json: true
+  })
+  .then(res => console.log(res))
+  .catch(err => console.log("Sent request to Ngsi Connector API"))
+}, 5 * 60 * 1000)
+
+setInterval(function() {
+  request({
+      method: "GET",
+      headers: {
+          "Fiware-Service": "waste4think",
+          "Fiware-ServicePath": "/deusto/w4t/cascais/real",
+          "X-Auth-Token": "DevelopmentTest",
+      },
+      uri: "http://backend.waste4think.eu/connector/test/entities",
+      json: true
+  })
+  .then(res => console.log(res))
+  .catch(err => console.log("Sent request to Test Ngsi Connector API"))
+}, 5 * 60 * 1000)
+
 app.use((req, res, next) => {
   const error = new Error("Requested route not found, more information on available routes can be found at: http://backend.waste4think.eu:81/");
   error.status = 404;
