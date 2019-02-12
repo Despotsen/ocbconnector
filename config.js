@@ -1,8 +1,8 @@
 const config = {};
 
-config.orion_url = "http://192.168.229.62:88/";
+config.orion_url = "http://192.168.229.62:82/";
 
-config.api_port = "3002";
+config.api_port = "3000";
 
 config.ext = [ ".csv", ".json" ];
 
