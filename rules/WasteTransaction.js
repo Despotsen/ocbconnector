@@ -8,10 +8,10 @@ const WasteTransaction = {
     refReceiver: rules.mandatoryCheck,
     refCapturer: rules.stringCheck,
     date: rules.mandatoryCheck,
-    emittedResources: rules.structuredValueMandatory,
-    receivedResources: rules.structuredValueMandatory,
-    incorrect: rules.stringCheck,
-    incorrectReason: rules.stringCheck
+    emittedResources: rules.structuredListMandatory,
+    receivedResources: rules.structuredListMandatory,
+    incidence: rules.stringCheck,
+    incidenceReason: rules.stringCheck
 };
 
 module.exports = WasteTransaction;

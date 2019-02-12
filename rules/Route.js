@@ -12,13 +12,13 @@ const Route = {
   departurePoint: rules.structuredValue,
   scheduledDepartureTimestamp: rules.stringCheck,
   realDepartureTimestamp: rules.stringCheck,
-  arrivalPoint: rules.locationCheckNoMand,
+  arrivalPoint: rules.structuredValue,
   scheduledArrivalTimestamp: rules.stringCheck,
   realArrivalTimestamp: rules.stringCheck,
-  scheduledStops: rules.structuredValue,
-  realStops: rules.structuredValueMandatory,
-  scheduledPath: rules.structuredValue,
-  realPath: rules.structuredValue
+  scheduledStops: rules.stringToArray,
+  realStops: rules.stringToArrayMandatory,
+  scheduledPath: rules.stringToArray,
+  realPath: rules.stringToArray
 };
 
 module.exports = Route;

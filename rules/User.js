@@ -8,8 +8,8 @@ const User = {
     location: rules.locationCheckNoMand,
     address: rules.stringCheck,
     refType: rules.stringCheck,
-    refInputs: rules.stringCheck,
-    refOutputs: rules.stringCheck,
+    refInputs: rules.stringToArray,
+    refOutputs: rules.stringToArray,
     refAgentCollection: rules.stringCheck
 }
 
