@@ -5,6 +5,7 @@ function propertyChecks( rules, entity, operation, ext ) {
 
     const rulesProp = Object.getOwnPropertyNames( rules );
     const entityProp = Object.getOwnPropertyNames( entity );
+
     
     const entPropSecond = (rules,entity) => {
         let rulesPr = rules
@@ -17,15 +18,17 @@ function propertyChecks( rules, entity, operation, ext ) {
         for (let index = 0; index < rulesPr.length; index++) {
             const element = rulesPr[index];
             if(!entprop.includes(element)) {
-                for (let single of entprop)
-                    if (single.substring(0, single.indexOf("%")) === element) {
+                for (let single of entityProp) {
+                    if (single.substring(0, single.indexOf("%")).toLowerCase() === element) {
                         let obj = {};
                         const data = single.substring( single.indexOf( "%" ) + 2, single.length - 2 );
+                        
                         obj.name = data.substring( data.indexOf( "{" ) );
                         obj.value = 0;
                         obj.test = index + 1;
                         metadata.push(obj);
                     }
+                }    
             }
         }
         metawrite( metadata );
