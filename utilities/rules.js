@@ -11,6 +11,41 @@ function commaNumToUnits( oldNum ) {
     if(typeof oldNum === 'object') {
         return {
             "value": oldNum.value,
+            "type": "Float",
+            "metadata": oldNum.metadata
+        }
+    }
+
+    const newNum = oldNum ? Number(oldNum.replace('.', '').replace(',', '.')) : 0;
+    let obj = [];
+    if ( pos( counter ) ) {
+        obj = [];
+        meta = pos(counter);
+        let send =  {
+            value: newNum || 0,
+            type: "Float",
+            metadata: JSON.parse(meta)
+        };
+        obj.push(send);
+
+    }
+
+    if(obj.length !== 0) {
+        return obj[0];
+    }
+
+          return {
+              "value": newNum || 0,
+              "type": "Float"
+          };
+}
+
+function commaNumToUnitsInt( oldNum ) {
+    counter += 1;
+
+    if(typeof oldNum === 'object') {
+        return {
+            "value": oldNum.value,
             "type": "Integer",
             "metadata": oldNum.metadata
         }
@@ -49,7 +84,7 @@ function commaNumToUnitsMandatory(oldNum) {
     if(typeof oldNum === 'object') {
         return {
             "value": oldNum.value,
-            "type": "Integer",
+            "type": "Float",
             "metadata": oldNum.metadata
         }
     }
@@ -61,11 +96,10 @@ function commaNumToUnitsMandatory(oldNum) {
         meta = pos(counter);
         let send =  {
             value: newNum || 0,
-            type: "Integer",
+            type: "Float",
             metadata: JSON.parse(meta)
         };
         obj.push(send);
-
     }
 
     if(obj.length !== 0) {
@@ -74,7 +108,7 @@ function commaNumToUnitsMandatory(oldNum) {
 
     return {
         "value": newNum || 0,
-        "type": "Integer"
+        "type": "Float"
     };
 }
 
@@ -153,14 +187,29 @@ function stringToArrayMandatory(string) {
   return null;
 }
 
-function dateCheck(date) {
+function dateCheckMandatory(date) {
   if (!date) {
-    return '';
-  }
-  if (!moment(date, 'DD/MM/YYYY HH:mm').isValid()) {
     return null;
   }
-  return date;
+  return {
+      value: date,
+      type: "DateTime",
+      metadata: {}
+  };
+}
+
+function dateCheck(date) {
+    if (!date)
+        return {
+            value: "",
+            type: "String",
+            metadata: {}
+        }
+    return {
+        value: date,
+        type: "DateTime",
+        metadata: {}
+    }
 }
 
 function mandatoryCheck( attribute ) {
@@ -234,14 +283,6 @@ function stringCheck(value) {
 
 function stringToArrayNum(string) {
     counter += 1;
-  if (!string) {
-    return {
-        value: [],
-        type: "List",
-        metadata: {}
-    }
-  }
-
   if (typeof string === 'object') {
     return {
         value: string,
@@ -271,7 +312,19 @@ function stringToArrayNum(string) {
           type: "List",
           metadata: {}
       }
-  }
+  } else {
+      obj = [];
+        meta = pos(counter);
+        let send =  {
+            value: [],
+            type: "List",
+            metadata: JSON.parse(meta) || {}
+        };
+        obj.push(send);
+        if(obj.length !== 0) {
+            return obj[0];
+        }
+    }
   return null;
 }
 
@@ -464,6 +517,7 @@ function structuredValue(string) {
 }
 
 function structuredValueMandatory(string) {
+    console.log(string)
     counter +=1
     if (!string)
         return null;
@@ -481,7 +535,29 @@ function structuredValueMandatory(string) {
     }
 }
 
+function structuredListMandatory(string) {
+    console.log(string)
+    counter +=1
+    if (!string)
+        return null;
+    if (typeof string == "object") {
+        return {
+            "value": string.value || {},
+            "type": "List",
+            "metadata": string.metadata || {}
+        }
+    }
+    return {
+        "value": specCase(string) || "",
+        "type": "List",
+        "metadata": {}
+    }
+}
+
 function specCase(string) {
+    if (!string) {
+        return string;
+    }
     if (string.includes("[")) {
         let temp = string.substring(1, string.length-1)
         return JSON.parse(temp)
@@ -493,7 +569,7 @@ module.exports = {
     locationCheck,
     commaNumToUnits,
     stringToArray,
-    dateCheck,
+    dateCheckMandatory,
     mandatoryCheck,
     extraCheck,
     maxCargoVolume,
@@ -507,5 +583,8 @@ module.exports = {
     idCheck,
     stringToArrayNum,
     structuredValue,
-    structuredValueMandatory
+    structuredValueMandatory,
+    dateCheck,
+    commaNumToUnitsInt,
+    structuredListMandatory
 };
