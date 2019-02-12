@@ -3,7 +3,7 @@ module.exports =  {
   locationCheck, 
   commaNumToUnits,
   stringToArray,
-  dateCheck,
+  dateCheckMandatory,
   extraCheck,
   maxCargoVolume,
   stringToArrayMandatory,
@@ -16,5 +16,8 @@ module.exports =  {
   idCheck,
   stringToArrayNum,
   structuredValue,
-  structuredValueMandatory
+  structuredValueMandatory,
+  dateCheck,
+  commaNumToUnitsInt,
+  structuredListMandatory
 } = require("./rules");
