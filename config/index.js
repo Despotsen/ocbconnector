@@ -13,7 +13,7 @@ const log = {
 };
 
 module.exports = {
-	fiware_orion_url: 'http://localhost:1026',
+	fiware_orion_url: 'http://192.168.229.62:88/',
 	ngsi_connector_port: 3002,
 	run_server_protocol: 'https',
 	allowed_file_extentions: [ ".csv", ".json" ],
