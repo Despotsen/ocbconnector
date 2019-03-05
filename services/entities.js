@@ -13,7 +13,7 @@ const entitiesOperations = {
         },
         uri: `${ url }v2/op/update`,
         body: {
-            actionType: "APPEND",
+            actionType: "APPEND_STRICT",
             entities: data,
         },
         json: true,

@@ -34,10 +34,15 @@ function postEntities(req, res, file, headers) {
       ]);
     })
       .catch((error) => {
-        if (error.statusCode === 401) {
-          res.status(401).json(error.error);
+        if (error.statusCode === 422) {
+          res.json(`Duplicate entities where detected in creation operations, 
+            NGSI Connector API successfuly created all entities that where not already in Fiware Orion`);
         }
-        res.json(error);
+        else if (error.statusCode === 401) {
+          res.status(401).json(error.error);
+        } else {
+          res.json(error);
+        }
       });
   })
     .catch((error) => {
