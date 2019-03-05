@@ -517,7 +517,6 @@ function structuredValue(string) {
 }
 
 function structuredValueMandatory(string) {
-    console.log(string)
     counter +=1
     if (!string)
         return null;
@@ -536,7 +535,6 @@ function structuredValueMandatory(string) {
 }
 
 function structuredListMandatory(string) {
-    console.log(string)
     counter +=1
     if (!string)
         return null;
