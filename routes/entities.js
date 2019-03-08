@@ -4,7 +4,7 @@ const router = express.Router();
 const { entities } = require("../controllers/");
 const { upload, headermid } = require("../middlewares");
 const rootController = require("../controllers/root");
-const url = require( "../config" ).orion_url;
+const url = require("../config").orion_url;
 
 const request = require("request-promise");
 
@@ -46,23 +46,24 @@ module.exports = () => {
   });
 
   router.post("/v1/seriousgame", (req, res) => {
-    request({
+    let data = req.body;
+    return request({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Fiware-Service": req.headers["fiware-service"],
-        "Fiware-ServicePath": req.headers["fiware-servicepath"],
-        "X-Auth-Token": req.headers["x-auth-token"],
+        "Fiware-Service": req.headers[ "fiware-service" ],
+        "Fiware-ServicePath": req.headers[ "fiware-servicepath" ],
+        "X-Auth-Token": req.headers[ "x-auth-token" ],
       },
-      uri: `${url}/v2/op/update`,
+      uri: `${url}v2/op/update`,
       body: {
-        actionType: "APPEND",
-        entities: req.body,
+        actionType: "append",
+        entities: data,
       },
       json: true,
     })
       .then((result) => {
-        res.status(200)
+        res.status(200).json()
       })
       .catch((error) => {
         res.json(error)
