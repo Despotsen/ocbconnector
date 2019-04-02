@@ -18,7 +18,8 @@ const Route = {
   scheduledStops: rules.stringToArray,
   realStops: rules.stringToArrayMandatory,
   scheduledPath: rules.stringToArray,
-  realPath: rules.stringToArray
+  realPath: rules.stringToArray,
+  refResourceTypes: rules.stringToArray
 };
 
 module.exports = Route;
