@@ -113,13 +113,22 @@ function commaNumToUnitsMandatory(oldNum) {
 }
 
 function stringToArray(string) {
-    counter += 1;
+    console.log(typeof string)
+    
   if (!string) {
     return {
         value: [],
         type: "List",
         metadata: {}
     };
+  }
+
+  if (typeof string === 'object') {
+      return {
+          value: string.value || [],
+          type: "List",
+          metadata: string.metadata || {}
+      }
   }
   if (string) {
       let obj = [];
@@ -156,9 +165,9 @@ function stringToArrayMandatory(string) {
 
   if (typeof string === 'object') {
     return {
-        value: string,
+        value: string.value || [],
         type: "List",
-        metadata: {}
+        metadata: string.metadata || {}
     }
   }
 
@@ -282,6 +291,7 @@ function stringCheck(value) {
 }
 
 function stringToArrayNum(string) {
+    
     counter += 1;
   if (typeof string === 'object') {
     return {
