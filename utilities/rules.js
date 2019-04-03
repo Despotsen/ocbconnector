@@ -112,9 +112,7 @@ function commaNumToUnitsMandatory(oldNum) {
     };
 }
 
-function stringToArray(string) {
-    console.log(typeof string)
-    
+function stringToArray(string) { 
   if (!string) {
     return {
         value: [],
