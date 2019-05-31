@@ -1,4 +1,5 @@
 const bunyan = require('bunyan');
+const maincfg = require('../config');
 
 const log = {
 	development: () => {
@@ -13,9 +14,10 @@ const log = {
 };
 
 module.exports = {
-	fiware_orion_url: 'http://192.168.229.62:88/',
+	authorized: maincfg.authorization,
+	fiware_orion_url: 'http://localhost:1026/',
 	ngsi_connector_port: 3002,
-	run_server_protocol: 'https',
+	run_server_protocol: 'http',
 	allowed_file_extentions: [ ".csv", ".json" ],
 	default_return_entities: 100,
 	expected_headers: ["fiware-service", "fiware-servicepath", "x-auth-token"],

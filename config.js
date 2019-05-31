@@ -8,6 +8,8 @@ config.ext = [ ".csv", ".json" ];
 
 config.https = true;
 
+config.authorization = true;
+
 config.returnEntities = 20;
 
 module.exports = config;
