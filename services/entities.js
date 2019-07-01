@@ -52,7 +52,7 @@ async function sendEntities(data, headers, operation) {
   var allBatches = []
   while (data.length > slicer) {
     let anchor = slicer;
-    slicer += 300;
+    slicer += 250;
     allBatches.push(
       entitiesOperations.createEntity(data.slice(anchor,slicer), headers)
     );
